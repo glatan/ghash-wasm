@@ -1,0 +1,5 @@
+[package]
+name = "ghash"
+version = "0.0.1"
+authors = ["glatan <glatan.edu@gmail.com>"]
+edition = "2018"
