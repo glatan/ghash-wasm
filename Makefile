@@ -1,5 +1,9 @@
 NAME = ghash
 
-.PHONY: build/wasm
-build/wasm:
-	@cargo build --target wasm32-unknown-unknown
+.PHONY: build
+build:
+	@npm run build
+
+.PHONY: start
+start:
+	@npm start

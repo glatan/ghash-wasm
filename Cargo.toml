@@ -1,5 +1,18 @@
 [package]
-name = "ghash"
+name = "ghash-wasm"
+description = "Ghash for wasm"
 version = "0.0.1"
 authors = ["glatan <glatan.edu@gmail.com>"]
+categories = ["wasm"]
+readme = "README.md"
 edition = "2018"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wasm-bindgen = "0.2.45"
+
+[dev-dependencies]
+wasm-bindgen-test = "0.2.45"
+wasm-bindgen-futures = "0.3.22"
