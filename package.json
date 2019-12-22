@@ -1,0 +1,18 @@
+{
+    "author": "glatan <glatan.edu@gmail.com>",
+    "name": "ghash-wasml",
+    "version": "0.0.1",
+    "scripts": {
+        "build": "rimraf dist && webpack --mode production",
+        "start": "rimraf dist && webpack-dev-server --open -d",
+        "test": "cargo test && wasm-pack test --headless"
+    },
+    "devDependencies": {
+        "@wasm-tool/wasm-pack-plugin": "^0.4.2",
+        "copy-webpack-plugin": "^5.0.3",
+        "webpack": "^4.33.0",
+        "webpack-cli": "^3.3.3",
+        "webpack-dev-server": "^3.7.1",
+        "rimraf": "^2.6.3"
+    }
+}

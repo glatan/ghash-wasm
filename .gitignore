@@ -1,2 +1,5 @@
-# rust
-target/
+/dist
+/node_modules
+/target
+/pkg/ghash*
+Cargo.lock

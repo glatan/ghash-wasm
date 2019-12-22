@@ -1,4 +1,4 @@
-use crate::shared::io::{Hash, New};
+use wasm_bindgen::prelude::*;
 
 const BLOCK_SIZE: usize = 16;
 const STABLE: [u8; 256] = [
@@ -17,6 +17,7 @@ const STABLE: [u8; 256] = [
     219, 153, 141, 51, 159, 17, 131, 20,
 ];
 
+#[wasm_bindgen]
 pub struct Md2Ctx {
     /*
     word_block {
@@ -29,7 +30,15 @@ pub struct Md2Ctx {
     state: [u8; 48],
 }
 
+#[wasm_bindgen]
 impl Md2Ctx {
+    #[wasm_bindgen(constructor)]
+    pub fn new(input: &[u8]) -> Md2Ctx {
+        Md2Ctx {
+            word_block: input.to_vec(),
+            state: [0; 48],
+        }
+    }
     fn padding(&mut self) {
         // padding_byte: self.dataを16の整数倍長に調整するための値
         let message_length: usize = self.word_block.len();
@@ -53,7 +62,6 @@ impl Md2Ctx {
     }
     fn round(&mut self) {
         let word_block_length = self.word_block.len() / BLOCK_SIZE;
-
         for i in 0..word_block_length {
             for j in 0..16 {
                 self.state[j + 16] = self.word_block[16 * i + j];
@@ -69,25 +77,12 @@ impl Md2Ctx {
             }
         }
     }
-}
-
-impl New for Md2Ctx {
-    fn new(input: &[u8]) -> Md2Ctx {
-        Md2Ctx {
-            word_block: input.to_vec(),
-            state: [0; 48],
-        }
-    }
-}
-
-impl Hash for Md2Ctx {
-    fn hash(input: &[u8]) -> String {
-        let mut md2ctx = Md2Ctx::new(&input);
-        Md2Ctx::padding(&mut md2ctx);
-        Md2Ctx::add_check_sum(&mut md2ctx);
-        Md2Ctx::round(&mut md2ctx);
-
-        md2ctx.state[0..16]
+    #[wasm_bindgen]
+    pub fn digest(&mut self) -> String {
+        self.padding();
+        self.add_check_sum();
+        self.round();
+        self.state[0..16]
             .iter()
             .map(|byte| format!("{:02x}", byte))
             .collect()

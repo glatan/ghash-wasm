@@ -1,4 +1,5 @@
-use crate::shared::io::{Hash, New};
+use wasm_bindgen::prelude::*;
+
 const WORD_BUFFER: [u32; 4] = [0x6745_2301, 0xEFCD_AB89, 0x98BA_DCFE, 0x1032_5476];
 
 #[rustfmt::skip]
@@ -65,7 +66,23 @@ impl Round {
     }
 }
 
+#[wasm_bindgen]
+pub struct Md5Ctx {
+    input_cache: Vec<u8>,
+    word_block: Vec<u32>,
+    status: [u32; 4],
+}
+
+#[wasm_bindgen]
 impl Md5Ctx {
+    #[wasm_bindgen(constructor)]
+    pub fn new(input: &[u8]) -> Md5Ctx {
+        Md5Ctx {
+            input_cache: input.to_vec(),
+            word_block: Vec::new(),
+            status: WORD_BUFFER,
+        }
+    }
     fn padding(&mut self) {
         // word_block末尾に0x80を追加
         let input_length: usize = self.input_cache.len();
@@ -106,7 +123,6 @@ impl Md5Ctx {
             b = self.status[1];
             c = self.status[2];
             d = self.status[3];
-
             // Round 1
             a = Round::round1(a, b, c, d, x[0], 7, T[0]);
             d = Round::round1(d, a, b, c, x[1], 12, T[1]);
@@ -186,31 +202,11 @@ impl Md5Ctx {
             self.status[i] = self.status[i].swap_bytes();
         }
     }
-}
-
-pub struct Md5Ctx {
-    input_cache: Vec<u8>,
-    word_block: Vec<u32>,
-    status: [u32; 4],
-}
-
-impl New for Md5Ctx {
-    fn new(input: &[u8]) -> Md5Ctx {
-        Md5Ctx {
-            input_cache: input.to_vec(),
-            word_block: Vec::new(),
-            status: WORD_BUFFER,
-        }
-    }
-}
-
-impl Hash for Md5Ctx {
-    fn hash(input: &[u8]) -> String {
-        let mut md5ctx = Md5Ctx::new(&input);
-        Md5Ctx::padding(&mut md5ctx);
-        Md5Ctx::round(&mut md5ctx);
-
-        md5ctx.status[0..4]
+    #[wasm_bindgen]
+    pub fn digest(&mut self) -> String {
+        self.padding();
+        self.round();
+        self.status[0..4]
             .iter()
             .map(|byte| format!("{:02x}", byte))
             .collect()
