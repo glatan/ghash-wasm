@@ -2,8 +2,16 @@ NAME = ghash
 
 .PHONY: build
 build:
-	@npm run build
+	@docker-compose run ${NAME} npm run build
 
 .PHONY: start
 start:
-	@npm start
+	@docker-compose run ${NAME} npm start
+
+.PHONY: d/build
+d/build:
+	@docker-compose build
+
+.PHONY: run/shell
+run/shell:
+	@docker-compose run ${NAME} sh

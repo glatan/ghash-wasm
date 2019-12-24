@@ -24,5 +24,5 @@ module.exports = {
       crateDirectory: __dirname,
       outName: "ghash-wasm"
     }),
-  ]
+  ],
 };
