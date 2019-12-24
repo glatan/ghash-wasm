@@ -4,7 +4,7 @@
     "version": "0.0.1",
     "scripts": {
         "build": "rimraf dist && webpack --mode production",
-        "start": "rimraf dist && webpack-dev-server --open -d",
+        "start": "rimraf dist && webpack-dev-server --mode development --hot --host 0.0.0.0",
         "test": "cargo test && wasm-pack test --headless"
     },
     "devDependencies": {
