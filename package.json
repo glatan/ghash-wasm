@@ -1,6 +1,6 @@
 {
     "author": "glatan <glatan.edu@gmail.com>",
-    "name": "ghash-wasml",
+    "name": "ghash-wasm",
     "version": "0.0.1",
     "scripts": {
         "build": "rimraf dist && webpack --mode production",
