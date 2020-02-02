@@ -7,8 +7,6 @@ ENV PATH "/cargo/bin:$PATH"
 
 ENV WASMPACK_VERSION '0.9.0'
 
-COPY package-lock.json .
-COPY package.json .
 COPY Cargo.toml .
 
 RUN \
@@ -33,6 +31,3 @@ RUN \
     touch src/lib.rs && \
     cargo build --release && \
     rm -r src/
-
-RUN \
-    npm i

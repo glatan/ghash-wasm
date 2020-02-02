@@ -5,6 +5,11 @@ WORKDIR = /workdir
 p/build:
 	@podman build -t ${NAME} .
 
+.PHONY: init
+init:
+	@podman run --name ${@} -v .:${WORKDIR} -w ${WORKDIR} -it ${NAME} npm install
+	@podman rm ${@}
+
 .PHONY: start
 start:
 	@podman run --name ${@} -p 8080:8080 -v .:${WORKDIR} -w ${WORKDIR} -it ${NAME} npm start
