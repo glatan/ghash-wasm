@@ -1,17 +1,21 @@
 NAME = ghash
+WORKDIR = /workdir
 
-.PHONY: build
-build:
-	@docker-compose run ${NAME} npm run build
+.PHONY: p/build
+p/build:
+	@podman build -t ${NAME} .
 
 .PHONY: start
 start:
-	@docker-compose run ${NAME} npm start
+	@podman run --name ${@} -p 8080:8080 -v .:${WORKDIR} -w ${WORKDIR} -it ${NAME} npm start
+	@podman rm ${@}
 
-.PHONY: d/build
-d/build:
-	@docker-compose build
+.PHONY: build
+build:
+	@podman run --name ${@} -v .:${WORKDIR} -w ${WORKDIR} -it ${NAME} npm run build
+	@podman rm ${@}
 
-.PHONY: run/shell
-run/shell:
-	@docker-compose run ${NAME} sh
+.PHONY: run-bash
+run-bash:
+	@podman run --name ${@} -v .:${WORKDIR} -w ${WORKDIR} -it ${NAME} bash
+	@podman rm ${@}
