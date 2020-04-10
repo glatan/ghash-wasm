@@ -20,8 +20,13 @@ impl Md4Ctx {
         }
     }
     fn padding(&mut self) {
+        /*
+        32bit環境(WebAssembly含む)だとusizeにしたときに、
+        to_le_bytes()の結果が[u8; 4]になってしまうため
+        キャストしている
+        */
+        let input_length = self.input_cache.len() as u64;
         // word_block末尾に0x80を追加
-        let input_length = self.input_cache.len();
         self.input_cache.push(0x80);
         let message_length: usize = self.input_cache.len();
         // (self.word_block.len() % 64)が56になるよう0を追加する数
@@ -45,7 +50,7 @@ impl Md4Ctx {
                 self.input_cache[i + 3],
             ]));
         }
-        self.word_block.append(&mut word_block);
+        self.word_block = word_block;
     }
     fn round(&mut self) {
         fn round1(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {

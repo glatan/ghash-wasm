@@ -85,9 +85,9 @@ impl Md5Ctx {
     }
     fn padding(&mut self) {
         // word_block末尾に0x80を追加
-        let input_length: usize = self.input_cache.len();
+        let input_length = self.input_cache.len() as u64;
         self.input_cache.push(0x80);
-        let message_length: usize = self.input_cache.len();
+        let message_length = self.input_cache.len();
         // (self.word_block.len() % 64)が56になるよう0を追加する数
         let padding_range = 56 - (message_length % 64);
         if padding_range != 0 {
@@ -112,7 +112,7 @@ impl Md5Ctx {
         self.word_block = word_block;
     }
     fn round(&mut self) {
-        let word_block_length: usize = self.word_block.len() / 16;
+        let word_block_length = self.word_block.len() / 16;
         let (mut a, mut b, mut c, mut d);
         let mut x: [u32; 16] = [0; 16];
         for i in 0..word_block_length {
