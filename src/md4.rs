@@ -2,6 +2,33 @@ use wasm_bindgen::prelude::*;
 
 const WORD_BUFFER: [u32; 4] = [0x6745_2301, 0xEFCD_AB89, 0x98BA_DCFE, 0x1032_5476];
 
+fn round1(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
+    fn f(x: u32, y: u32, z: u32) -> u32 {
+        (x & y) | (!x & z)
+    }
+    a.wrapping_add(f(b, c, d)).wrapping_add(k).rotate_left(s)
+}
+
+fn round2(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
+    fn g(x: u32, y: u32, z: u32) -> u32 {
+        (x & y) | (x & z) | (y & z)
+    }
+    a.wrapping_add(g(b, c, d))
+        .wrapping_add(k)
+        .wrapping_add(0x5A82_7999)
+        .rotate_left(s)
+}
+
+fn round3(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
+    fn h(x: u32, y: u32, z: u32) -> u32 {
+        x ^ y ^ z
+    }
+    a.wrapping_add(h(b, c, d))
+        .wrapping_add(k)
+        .wrapping_add(0x6ED9_EBA1)
+        .rotate_left(s)
+}
+
 #[wasm_bindgen]
 pub struct Md4Ctx {
     input_cache: Vec<u8>,
@@ -53,30 +80,6 @@ impl Md4Ctx {
         self.word_block = word_block;
     }
     fn round(&mut self) {
-        fn round1(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
-            fn f(x: u32, y: u32, z: u32) -> u32 {
-                (x & y) | (!x & z)
-            }
-            a.wrapping_add(f(b, c, d)).wrapping_add(k).rotate_left(s)
-        }
-        fn round2(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
-            fn g(x: u32, y: u32, z: u32) -> u32 {
-                (x & y) | (x & z) | (y & z)
-            }
-            a.wrapping_add(g(b, c, d))
-                .wrapping_add(k)
-                .wrapping_add(0x5A82_7999)
-                .rotate_left(s)
-        }
-        fn round3(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
-            fn h(x: u32, y: u32, z: u32) -> u32 {
-                x ^ y ^ z
-            }
-            a.wrapping_add(h(b, c, d))
-                .wrapping_add(k)
-                .wrapping_add(0x6ED9_EBA1)
-                .rotate_left(s)
-        }
         let word_block_length = self.word_block.len() / 16;
         let (mut a, mut b, mut c, mut d);
         let mut x: [u32; 16] = [0; 16];
