@@ -1,7 +1,28 @@
 <body>
   <form id="hash" name="hash">
     <textarea form="hash" id="input" name="input"></textarea><br>
-    <output form="hash" for="input" id="digest" name="digest"></output>
   </form>
+  <table>
+    <thead>
+      <tr>
+        <th>アルゴリズム</th>
+        <th>値</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>MD2</td>
+        <td><output form="hash" for="input" id="md2"></output></td>
+      </tr>
+      <tr>
+        <td>MD4</td>
+        <td><output form="hash" for="input" id="md4"></output></td>
+      </tr>
+      <tr>
+        <td>MD5</td>
+        <td><output form="hash" for="input" id="md5"></output></td>
+      </tr>
+    </tbody>
+  </table>
   <script type="text/javascript" src="index.js"></script>
 </body>
