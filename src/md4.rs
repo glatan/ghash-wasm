@@ -1,6 +1,37 @@
 use wasm_bindgen::prelude::*;
 
+#[allow(unused_imports)]
+#[cfg(debug_assertions)]
+use crate::*;
+
 const WORD_BUFFER: [u32; 4] = [0x6745_2301, 0xEFCD_AB89, 0x98BA_DCFE, 0x1032_5476];
+
+fn round1(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
+    fn f(x: u32, y: u32, z: u32) -> u32 {
+        (x & y) | (!x & z)
+    }
+    a.wrapping_add(f(b, c, d)).wrapping_add(k).rotate_left(s)
+}
+
+fn round2(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
+    fn g(x: u32, y: u32, z: u32) -> u32 {
+        (x & y) | (x & z) | (y & z)
+    }
+    a.wrapping_add(g(b, c, d))
+        .wrapping_add(k)
+        .wrapping_add(0x5A82_7999)
+        .rotate_left(s)
+}
+
+fn round3(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
+    fn h(x: u32, y: u32, z: u32) -> u32 {
+        x ^ y ^ z
+    }
+    a.wrapping_add(h(b, c, d))
+        .wrapping_add(k)
+        .wrapping_add(0x6ED9_EBA1)
+        .rotate_left(s)
+}
 
 #[wasm_bindgen]
 pub struct Md4Ctx {
@@ -20,8 +51,13 @@ impl Md4Ctx {
         }
     }
     fn padding(&mut self) {
+        /*
+        32bit環境(WebAssembly含む)だとusizeにしたときに、
+        to_le_bytes()の結果が[u8; 4]になってしまうため
+        キャストしている
+        */
+        let input_length = self.input_cache.len() as u64;
         // word_block末尾に0x80を追加
-        let input_length = self.input_cache.len();
         self.input_cache.push(0x80);
         let message_length: usize = self.input_cache.len();
         // (self.word_block.len() % 64)が56になるよう0を追加する数
@@ -32,7 +68,7 @@ impl Md4Ctx {
             self.input_cache.append(&mut vec![0; 64]);
         }
         // 入力データの長さを追加
-        let mut padding_length = { (8 * input_length).to_le_bytes().to_vec() };
+        let mut padding_length = (8 * input_length).to_le_bytes().to_vec();
         self.input_cache.append(&mut padding_length);
         // word_block用に値をu32に拡張する
         let mut word_block: Vec<u32> = Vec::new();
@@ -45,33 +81,9 @@ impl Md4Ctx {
                 self.input_cache[i + 3],
             ]));
         }
-        self.word_block.append(&mut word_block);
+        self.word_block = word_block;
     }
     fn round(&mut self) {
-        fn round1(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
-            fn f(x: u32, y: u32, z: u32) -> u32 {
-                (x & y) | (!x & z)
-            }
-            a.wrapping_add(f(b, c, d)).wrapping_add(k).rotate_left(s)
-        }
-        fn round2(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
-            fn g(x: u32, y: u32, z: u32) -> u32 {
-                (x & y) | (x & z) | (y & z)
-            }
-            a.wrapping_add(g(b, c, d))
-                .wrapping_add(k)
-                .wrapping_add(0x5A82_7999)
-                .rotate_left(s)
-        }
-        fn round3(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
-            fn h(x: u32, y: u32, z: u32) -> u32 {
-                x ^ y ^ z
-            }
-            a.wrapping_add(h(b, c, d))
-                .wrapping_add(k)
-                .wrapping_add(0x6ED9_EBA1)
-                .rotate_left(s)
-        }
         let word_block_length = self.word_block.len() / 16;
         let (mut a, mut b, mut c, mut d);
         let mut x: [u32; 16] = [0; 16];

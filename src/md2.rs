@@ -1,5 +1,9 @@
 use wasm_bindgen::prelude::*;
 
+#[allow(unused_imports)]
+#[cfg(debug_assertions)]
+use crate::*;
+
 const BLOCK_SIZE: usize = 16;
 const STABLE: [u8; 256] = [
     41, 46, 67, 201, 162, 216, 124, 1, 61, 54, 84, 161, 236, 240, 6, 19, 98, 167, 5, 243, 192, 199,
