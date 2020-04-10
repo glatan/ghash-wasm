@@ -5,7 +5,7 @@ WORKDIR /workdir
 ENV CARGO_HOME "/cargo"
 ENV PATH "/cargo/bin:$PATH"
 
-ENV WASMPACK_VERSION '0.9.0'
+ENV WASMPACK_VERSION '0.9.1'
 
 COPY Cargo.toml .
 
