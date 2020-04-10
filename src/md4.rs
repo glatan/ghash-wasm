@@ -1,5 +1,9 @@
 use wasm_bindgen::prelude::*;
 
+#[allow(unused_imports)]
+#[cfg(debug_assertions)]
+use crate::*;
+
 const WORD_BUFFER: [u32; 4] = [0x6745_2301, 0xEFCD_AB89, 0x98BA_DCFE, 0x1032_5476];
 
 fn round1(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
@@ -64,7 +68,7 @@ impl Md4Ctx {
             self.input_cache.append(&mut vec![0; 64]);
         }
         // 入力データの長さを追加
-        let mut padding_length = { (8 * input_length).to_le_bytes().to_vec() };
+        let mut padding_length = (8 * input_length).to_le_bytes().to_vec();
         self.input_cache.append(&mut padding_length);
         // word_block用に値をu32に拡張する
         let mut word_block: Vec<u32> = Vec::new();
