@@ -2,6 +2,7 @@
     "author": "glatan <glatan.edu@gmail.com>",
     "name": "ghash-wasm",
     "version": "0.0.1",
+    "license": "GPL-3.0",
     "scripts": {
         "build": "rimraf dist && webpack --mode production",
         "start": "rimraf dist && webpack-dev-server --mode development --hot --host 0.0.0.0",
