@@ -1,3 +1,5 @@
+use std::cmp::Ordering;
+
 use wasm_bindgen::prelude::*;
 
 #[allow(unused_imports)]
@@ -35,7 +37,7 @@ fn round3(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
 
 #[wasm_bindgen]
 pub struct Md4 {
-    input_cache: Vec<u8>,
+    input: Vec<u8>,
     word_block: Vec<u32>,
     status: [u32; 4],
 }
@@ -45,43 +47,41 @@ impl Md4 {
     #[wasm_bindgen(constructor)]
     pub fn new(input: &[u8]) -> Self {
         Self {
-            input_cache: input.to_vec(),
+            input: input.to_vec(),
             word_block: Vec::new(),
             status: WORD_BUFFER,
         }
     }
     fn padding(&mut self) {
-        /*
-        32bit環境(WebAssembly含む)だとusizeにしたときに、
-        to_le_bytes()の結果が[u8; 4]になってしまうため
-        キャストしている
-        */
-        let input_length = self.input_cache.len() as u64;
-        // word_block末尾に0x80を追加
-        self.input_cache.push(0x80);
-        let message_length: usize = self.input_cache.len();
-        // (self.word_block.len() % 64)が56になるよう0を追加する数
-        let padding_range = 56 - (message_length % 64);
-        if padding_range != 0 {
-            self.input_cache.append(&mut vec![0; padding_range]);
-        } else {
-            self.input_cache.append(&mut vec![0; 64]);
+        let input_length = self.input.len();
+        // word_block末尾に0x80を追加(0b1000_0000)
+        self.input.push(0x80);
+        // (self.word_block.len() % 64)が55(56 - 1)になるよう0を追加する数
+        let padding_length = 55 - (input_length as isize % 64);
+        match padding_length.cmp(&0) {
+            Ordering::Greater => {
+                self.input.append(&mut vec![0; padding_length as usize]);
+            }
+            Ordering::Less => {
+                self.input
+                    .append(&mut vec![0; (padding_length + 64) as usize]);
+            }
+            Ordering::Equal => {
+                self.input.append(&mut vec![0; 64]);
+            }
         }
         // 入力データの長さを追加
-        let mut padding_length = (8 * input_length).to_le_bytes().to_vec();
-        self.input_cache.append(&mut padding_length);
-        // word_block用に値をu32に拡張する
-        let mut word_block: Vec<u32> = Vec::new();
+        self.input
+            .append(&mut (8 * input_length as u64).to_le_bytes().to_vec());
         // iは4の倍数となる (0, 4, 8..60..)
-        for i in (0..self.input_cache.len()).filter(|i| i % 4 == 0) {
-            word_block.push(u32::from_le_bytes([
-                self.input_cache[i],
-                self.input_cache[i + 1],
-                self.input_cache[i + 2],
-                self.input_cache[i + 3],
+        for i in (0..self.input.len()).filter(|i| i % 4 == 0) {
+            self.word_block.push(u32::from_le_bytes([
+                self.input[i],
+                self.input[i + 1],
+                self.input[i + 2],
+                self.input[i + 3],
             ]));
         }
-        self.word_block = word_block;
     }
     fn round(&mut self) {
         let word_block_length = self.word_block.len() / 16;
