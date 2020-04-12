@@ -7,30 +7,26 @@ import(/* webpackChunkName: "ghash-wasm" */"../pkg").then(module => {
     const sha1_output_form = document.getElementById('sha1')
     function md2() {
         const input_string = (new TextEncoder).encode(input_form.value)
-        const md2_digest = new module.Md2Ctx(input_string).digest()
-        md2_output_form.value = md2_digest
+        md2_output_form.value = new module.Md2(input_string).digest()
     }
     function md4() {
         const input_string = (new TextEncoder).encode(input_form.value)
-        const md4_digest = new module.Md4Ctx(input_string).digest()
-        md4_output_form.value = md4_digest
+        md4_output_form.value = new module.Md4(input_string).digest()
     }
     function md5() {
         const input_string = (new TextEncoder).encode(input_form.value)
-        const md5_digest = new module.Md5Ctx(input_string).digest()
-        md5_output_form.value = md5_digest
+        md5_output_form.value = new module.Md5(input_string).digest()
+        
     }
     function sha0() {
         const input_string = (new TextEncoder).encode(input_form.value)
-        const sha0_digest = new module.Sha0(input_string).digest()
-        sha0_output_form.value = sha0_digest
+        sha0_output_form.value = new module.Sha0(input_string).digest()
     }
     function sha1() {
         const input_string = (new TextEncoder).encode(input_form.value)
-        const sha1_digest = new module.Sha1(input_string).digest()
-        sha1_output_form.value = sha1_digest
+        sha1_output_form.value = new module.Sha1(input_string).digest()
+        
     }
-    
     function calculate() {
         md2()
         md4()
