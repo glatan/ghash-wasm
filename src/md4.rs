@@ -34,17 +34,17 @@ fn round3(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
 }
 
 #[wasm_bindgen]
-pub struct Md4Ctx {
+pub struct Md4 {
     input_cache: Vec<u8>,
     word_block: Vec<u32>,
     status: [u32; 4],
 }
 
 #[wasm_bindgen]
-impl Md4Ctx {
+impl Md4 {
     #[wasm_bindgen(constructor)]
-    pub fn new(input: &[u8]) -> Md4Ctx {
-        Md4Ctx {
+    pub fn new(input: &[u8]) -> Self {
+        Self {
             input_cache: input.to_vec(),
             word_block: Vec::new(),
             status: WORD_BUFFER,

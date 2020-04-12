@@ -22,7 +22,7 @@ const STABLE: [u8; 256] = [
 ];
 
 #[wasm_bindgen]
-pub struct Md2Ctx {
+pub struct Md2 {
     /*
     word_block {
         input + padding_byte : 16*n bytes
@@ -35,10 +35,10 @@ pub struct Md2Ctx {
 }
 
 #[wasm_bindgen]
-impl Md2Ctx {
+impl Md2 {
     #[wasm_bindgen(constructor)]
-    pub fn new(input: &[u8]) -> Md2Ctx {
-        Md2Ctx {
+    pub fn new(input: &[u8]) -> Self {
+        Self {
             word_block: input.to_vec(),
             state: [0; 48],
         }
