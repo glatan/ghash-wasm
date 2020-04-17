@@ -24,8 +24,9 @@ const T: [u32; 64] = [
     0x6FA8_7E4F, 0xFE2C_E6E0, 0xA301_4314, 0x4E08_11A1, 0xF753_7E82, 0xBD3A_F235, 0x2AD7_D2BB, 0xEB86_D391,
 ];
 
-fn round1(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32, t: u32) -> u32 {
-    fn f(x: u32, y: u32, z: u32) -> u32 {
+#[allow(clippy::many_single_char_names)]
+const fn round1(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32, t: u32) -> u32 {
+    const fn f(x: u32, y: u32, z: u32) -> u32 {
         (x & y) | (!x & z)
     }
     b.wrapping_add(
@@ -36,8 +37,9 @@ fn round1(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32, t: u32) -> u32 {
     )
 }
 
-fn round2(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32, t: u32) -> u32 {
-    fn g(x: u32, y: u32, z: u32) -> u32 {
+#[allow(clippy::many_single_char_names)]
+const fn round2(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32, t: u32) -> u32 {
+    const fn g(x: u32, y: u32, z: u32) -> u32 {
         (x & z) | (y & !z)
     }
     b.wrapping_add(
@@ -48,8 +50,9 @@ fn round2(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32, t: u32) -> u32 {
     )
 }
 
-fn round3(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32, t: u32) -> u32 {
-    fn h(x: u32, y: u32, z: u32) -> u32 {
+#[allow(clippy::many_single_char_names)]
+const fn round3(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32, t: u32) -> u32 {
+    const fn h(x: u32, y: u32, z: u32) -> u32 {
         x ^ y ^ z
     }
     b.wrapping_add(
@@ -60,8 +63,9 @@ fn round3(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32, t: u32) -> u32 {
     )
 }
 
-fn round4(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32, t: u32) -> u32 {
-    fn i(x: u32, y: u32, z: u32) -> u32 {
+#[allow(clippy::many_single_char_names)]
+const fn round4(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32, t: u32) -> u32 {
+    const fn i(x: u32, y: u32, z: u32) -> u32 {
         y ^ (x | !z)
     }
     b.wrapping_add(
@@ -82,9 +86,9 @@ pub struct Md5 {
 #[wasm_bindgen]
 impl Md5 {
     #[wasm_bindgen(constructor)]
-    pub fn new(input: &[u8]) -> Self {
+    pub fn new() -> Self {
         Self {
-            input: input.to_vec(),
+            input: Vec::new(),
             word_block: Vec::new(),
             status: WORD_BUFFER,
         }
@@ -211,11 +215,19 @@ impl Md5 {
             self.status[i] = self.status[i].swap_bytes();
         }
     }
+    fn hash(input: &[u8]) -> Vec<u8> {
+        let mut md5 = Self::new();
+        md5.input = input.to_vec();
+        md5.padding();
+        md5.round();
+        md5.status[0..4]
+            .iter()
+            .flat_map(|byte| byte.to_be_bytes().to_vec())
+            .collect()
+    }
     #[wasm_bindgen]
-    pub fn digest(&mut self) -> String {
-        self.padding();
-        self.round();
-        self.status[0..4]
+    pub fn hash_to_lowercase(input: &[u8]) -> String {
+        Self::hash(input)
             .iter()
             .map(|byte| format!("{:02x}", byte))
             .collect()

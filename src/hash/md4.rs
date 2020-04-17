@@ -8,15 +8,17 @@ use crate::*;
 
 const WORD_BUFFER: [u32; 4] = [0x6745_2301, 0xEFCD_AB89, 0x98BA_DCFE, 0x1032_5476];
 
-fn round1(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
-    fn f(x: u32, y: u32, z: u32) -> u32 {
+#[allow(clippy::many_single_char_names)]
+const fn round1(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
+    const fn f(x: u32, y: u32, z: u32) -> u32 {
         (x & y) | (!x & z)
     }
     a.wrapping_add(f(b, c, d)).wrapping_add(k).rotate_left(s)
 }
 
-fn round2(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
-    fn g(x: u32, y: u32, z: u32) -> u32 {
+#[allow(clippy::many_single_char_names)]
+const fn round2(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
+    const fn g(x: u32, y: u32, z: u32) -> u32 {
         (x & y) | (x & z) | (y & z)
     }
     a.wrapping_add(g(b, c, d))
@@ -25,8 +27,9 @@ fn round2(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
         .rotate_left(s)
 }
 
-fn round3(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
-    fn h(x: u32, y: u32, z: u32) -> u32 {
+#[allow(clippy::many_single_char_names)]
+const fn round3(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
+    const fn h(x: u32, y: u32, z: u32) -> u32 {
         x ^ y ^ z
     }
     a.wrapping_add(h(b, c, d))
@@ -45,9 +48,9 @@ pub struct Md4 {
 #[wasm_bindgen]
 impl Md4 {
     #[wasm_bindgen(constructor)]
-    pub fn new(input: &[u8]) -> Self {
+    pub fn new() -> Self {
         Self {
-            input: input.to_vec(),
+            input: Vec::new(),
             word_block: Vec::new(),
             status: WORD_BUFFER,
         }
@@ -56,19 +59,17 @@ impl Md4 {
         let input_length = self.input.len();
         // word_block末尾に0x80を追加(0b1000_0000)
         self.input.push(0x80);
-        // (self.word_block.len() % 64)が55(56 - 1)になるよう0を追加する数
-        let padding_length = 55 - (input_length as isize % 64);
+        // [byte]: 64 - 8(input_length) - 1(0x80) = 55
+        let padding_length = 55 - (input_length as i128);
         match padding_length.cmp(&0) {
             Ordering::Greater => {
                 self.input.append(&mut vec![0; padding_length as usize]);
             }
             Ordering::Less => {
                 self.input
-                    .append(&mut vec![0; (padding_length + 64) as usize]);
+                    .append(&mut vec![0; 64 - (padding_length.abs() % 64) as usize]);
             }
-            Ordering::Equal => {
-                self.input.append(&mut vec![0; 64]);
-            }
+            Ordering::Equal => (),
         }
         // 入力データの長さを追加
         self.input
@@ -127,11 +128,19 @@ impl Md4 {
             self.status[i] = self.status[i].swap_bytes();
         }
     }
+    fn hash(input: &[u8]) -> Vec<u8> {
+        let mut md4 = Self::new();
+        md4.input = input.to_vec();
+        md4.padding();
+        md4.round();
+        md4.status[0..4]
+            .iter()
+            .flat_map(|word| word.to_be_bytes().to_vec())
+            .collect()
+    }
     #[wasm_bindgen]
-    pub fn digest(&mut self) -> String {
-        self.padding();
-        self.round();
-        self.status[0..4]
+    pub fn hash_to_lowercase(input: &[u8]) -> String {
+        Self::hash(input)
             .iter()
             .map(|byte| format!("{:02x}", byte))
             .collect()

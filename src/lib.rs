@@ -1,29 +1,5 @@
-mod md2;
-mod md4;
-mod md5;
-mod sha0;
-mod sha1;
+mod hash;
 
-#[cfg(debug_assertions)]
-use wasm_bindgen::prelude::*;
-
-#[cfg(debug_assertions)]
-#[wasm_bindgen]
-extern "C" {
-    #[wasm_bindgen(js_namespace = console)]
-    fn log(a: &str);
-}
-
-#[cfg(debug_assertions)]
-#[macro_export]
-macro_rules! console_log {
-    ($($t:tt)*) => (log(&format_args!($($t)*).to_string()))
-}
-
-pub use self::{
-    md2::Md2,
-    md4::Md4,
-    md5::Md5,
-    sha0::Sha0,
-    sha1::Sha1,
+pub use self::hash::{
+    Md2, Md4, Md5, Sha0, Sha1, Sha224, Sha256, Sha384, Sha512, Sha512Trunc224, Sha512Trunc256,
 };

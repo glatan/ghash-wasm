@@ -21,33 +21,33 @@ const H: [u32; 5] = [
 ];
 
 // 0 <= t <= 19
-fn ch(b: u32, c: u32, d: u32) -> u32 {
+const fn ch(b: u32, c: u32, d: u32) -> u32 {
     (b & c) | (!b & d)
 }
 
 // 20 <= t <= 39, 60 <= t <= 79
-fn parity(b: u32, c: u32, d: u32) -> u32 {
+const fn parity(b: u32, c: u32, d: u32) -> u32 {
     b ^ c ^ d
 }
 
 // 40 <= t <= 59
-fn maj(b: u32, c: u32, d: u32) -> u32 {
+const fn maj(b: u32, c: u32, d: u32) -> u32 {
     (b & c) | (b & d) | (c & d)
 }
 
 #[wasm_bindgen]
-pub struct Sha1 {
+pub struct Sha0 {
     input: Vec<u8>,
     word_block: Vec<u32>,
     status: [u32; 5],
 }
 
 #[wasm_bindgen]
-impl Sha1 {
+impl Sha0 {
     #[wasm_bindgen(constructor)]
-    pub fn new(input: &[u8]) -> Self {
+    pub fn new() -> Self {
         Self {
-            input: input.to_vec(),
+            input: Vec::new(),
             word_block: Vec::new(),
             status: H,
         }
@@ -56,19 +56,17 @@ impl Sha1 {
         let input_length = self.input.len();
         // word_block末尾に0x80を追加(0b1000_0000)
         self.input.push(0x80);
-        // (self.word_block.len() % 64)が55(56 - 1)になるよう0を追加する数
-        let padding_length = 55 - (input_length as isize % 64);
+        // [byte]: 64 - 8(input_length) - 1(0x80) = 55
+        let padding_length = 55 - (input_length as i128);
         match padding_length.cmp(&0) {
             Ordering::Greater => {
                 self.input.append(&mut vec![0; padding_length as usize]);
             }
             Ordering::Less => {
                 self.input
-                    .append(&mut vec![0; (padding_length + 64) as usize]);
+                    .append(&mut vec![0; 64 - (padding_length.abs() % 64) as usize]);
             }
-            Ordering::Equal => {
-                self.input.append(&mut vec![0; 64]);
-            }
+            Ordering::Equal => (),
         }
         // 入力データの長さを追加
         self.input
@@ -93,7 +91,7 @@ impl Sha1 {
                 w[t] = self.word_block[t + i * 16];
             }
             for t in 16..80 {
-                w[t] = (w[t - 3] ^ w[t - 8] ^ w[t - 14] ^ w[t - 16]).rotate_left(1);
+                w[t] = w[t - 3] ^ w[t - 8] ^ w[t - 14] ^ w[t - 16];
             }
             a = self.status[0];
             b = self.status[1];
@@ -163,13 +161,21 @@ impl Sha1 {
             self.status[4] = self.status[4].wrapping_add(e);
         }
     }
-    #[wasm_bindgen]
-    pub fn digest(&mut self) -> String {
-        self.padding();
-        self.round();
-        self.status
+    fn hash(input: &[u8]) -> Vec<u8> {
+        let mut sha0 = Self::new();
+        sha0.input = input.to_vec();
+        sha0.padding();
+        sha0.round();
+        sha0.status
             .iter()
-            .map(|word| format!("{:08x}", word))
+            .flat_map(|word| word.to_be_bytes().to_vec())
+            .collect()
+    }
+    #[wasm_bindgen]
+    pub fn hash_to_lowercase(input: &[u8]) -> String {
+        Self::hash(input)
+            .iter()
+            .map(|byte| format!("{:02x}", byte))
             .collect()
     }
 }
