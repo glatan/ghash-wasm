@@ -37,9 +37,9 @@ pub struct Md2 {
 #[wasm_bindgen]
 impl Md2 {
     #[wasm_bindgen(constructor)]
-    pub fn new(input: &[u8]) -> Self {
+    pub fn new() -> Self {
         Self {
-            word_block: input.to_vec(),
+            word_block: Vec::new(),
             state: [0; 48],
         }
     }
@@ -81,12 +81,17 @@ impl Md2 {
             }
         }
     }
+    fn hash(input: &[u8]) -> Vec<u8> {
+        let mut md2 = Self::new();
+        md2.word_block = input.to_vec();
+        md2.padding();
+        md2.add_check_sum();
+        md2.round();
+        md2.state.iter().take(16).copied().collect()
+    }
     #[wasm_bindgen]
-    pub fn digest(&mut self) -> String {
-        self.padding();
-        self.add_check_sum();
-        self.round();
-        self.state[0..16]
+    pub fn hash_to_lowercase(input: &[u8]) -> String {
+        Self::hash(input)
             .iter()
             .map(|byte| format!("{:02x}", byte))
             .collect()
