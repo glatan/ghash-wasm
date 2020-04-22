@@ -56,33 +56,7 @@ impl Md4 {
         }
     }
     fn padding(&mut self) {
-        let input_length = self.input.len();
-        // word_block末尾に0x80を追加(0b1000_0000)
-        self.input.push(0x80);
-        // [byte]: 64 - 8(input_length) - 1(0x80) = 55
-        let padding_length = 55 - (input_length as i128);
-        match padding_length.cmp(&0) {
-            Ordering::Greater => {
-                self.input.append(&mut vec![0; padding_length as usize]);
-            }
-            Ordering::Less => {
-                self.input
-                    .append(&mut vec![0; 64 - (padding_length.abs() % 64) as usize]);
-            }
-            Ordering::Equal => (),
-        }
-        // 入力データの長さを追加
-        self.input
-            .append(&mut (8 * input_length as u64).to_le_bytes().to_vec());
-        // iは4の倍数となる (0, 4, 8..60..)
-        for i in (0..self.input.len()).filter(|i| i % 4 == 0) {
-            self.word_block.push(u32::from_le_bytes([
-                self.input[i],
-                self.input[i + 1],
-                self.input[i + 2],
-                self.input[i + 3],
-            ]));
-        }
+        self.word_block = Self::md4_padding(&mut self.input);
     }
     fn round(&mut self) {
         let word_block_length = self.word_block.len() / 16;
@@ -144,5 +118,49 @@ impl Md4 {
             .iter()
             .map(|byte| format!("{:02x}", byte))
             .collect()
+    }
+}
+
+// MD4と同様、又はほぼ同様のパディングを行うハッシュ関数が多いため、このような実装になっている。
+pub(super) trait Md4Padding {
+    fn u64_to_bytes(num: u64) -> [u8; 8];
+    fn u32_from_bytes(bytes: [u8; 4]) -> u32;
+    fn md4_padding(input: &mut Vec<u8>) -> Vec<u32> {
+        let mut word_block = Vec::new();
+        let input_length = input.len();
+        // 入力末尾に0x80を追加(0b1000_0000)
+        input.push(0x80);
+        // [byte]: 64 - 8(input_length) - 1(0x80) = 55
+        let padding_length = 55 - (input_length as i128);
+        match padding_length.cmp(&0) {
+            Ordering::Greater => {
+                input.append(&mut vec![0; padding_length as usize]);
+            }
+            Ordering::Less => {
+                input.append(&mut vec![0; 64 - (padding_length.abs() % 64) as usize]);
+            }
+            Ordering::Equal => (),
+        }
+        // 入力データの長さを追加
+        input.append(&mut Self::u64_to_bytes(8 * input_length as u64).to_vec());
+        // バイト列からワードブロックを生成
+        for i in (0..input.len()).filter(|i| i % 4 == 0) {
+            word_block.push(Self::u32_from_bytes([
+                input[i],
+                input[i + 1],
+                input[i + 2],
+                input[i + 3],
+            ]));
+        }
+        word_block
+    }
+}
+
+impl Md4Padding for Md4 {
+    fn u64_to_bytes(num: u64) -> [u8; 8] {
+        num.to_le_bytes()
+    }
+    fn u32_from_bytes(bytes: [u8; 4]) -> u32 {
+        u32::from_le_bytes(bytes)
     }
 }
