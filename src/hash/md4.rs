@@ -58,6 +58,7 @@ impl Md4 {
     fn padding(&mut self) {
         self.word_block = Self::md4_padding(&mut self.input);
     }
+    #[allow(clippy::many_single_char_names)]
     fn round(&mut self) {
         let word_block_length = self.word_block.len() / 16;
         let (mut a, mut b, mut c, mut d);
