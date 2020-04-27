@@ -1,6 +1,6 @@
-use super::Md4Padding;
-
+use crate::{impl_md4_padding, impl_message};
 use std::cmp::Ordering;
+use std::mem;
 
 mod sha224;
 mod sha256;
@@ -93,22 +93,15 @@ const fn small_sigma64_1(x: u64) -> u64 {
     x.rotate_right(19) ^ x.rotate_right(61) ^ (x >> 6)
 }
 
-struct Sha2_32bit {
-    input: Vec<u8>,
-    word_block: Vec<u32>,
-    status: [u32; 8],
+// Sha2<u32>: SHA-224 and SHA-256
+// Sha2<u64>: SHA-384, SHA-512, SHA-512/224 and SHA-512/256
+struct Sha2<T> {
+    message: Vec<u8>,
+    word_block: Vec<T>,
+    status: [T; 8],
 }
 
-struct Sha2_64bit {
-    input: Vec<u8>,
-    word_block: Vec<u64>,
-    status: [u64; 8],
-}
-
-impl Sha2_32bit {
-    fn padding(&mut self) {
-        self.word_block = Self::md4_padding(&mut self.input);
-    }
+impl Sha2<u32> {
     #[allow(clippy::many_single_char_names)]
     fn round(&mut self) {
         let (mut a, mut b, mut c, mut d, mut e, mut f, mut g, mut h);
@@ -160,49 +153,12 @@ impl Sha2_32bit {
     }
 }
 
-impl Md4Padding for Sha2_32bit {
-    fn u64_to_bytes(num: u64) -> [u8; 8] {
-        num.to_be_bytes()
-    }
-    fn u32_from_bytes(bytes: [u8; 4]) -> u32 {
-        u32::from_be_bytes(bytes)
-    }
+impl Sha2<u32> {
+    impl_message!(self, u64);
+    impl_md4_padding!(u32 => self, from_be_bytes, to_be_bytes, 55, {});
 }
 
-impl Sha2_64bit {
-    fn padding(&mut self) {
-        let input_length = self.input.len();
-        // word_block末尾に0x80を追加(0b1000_0000)
-        self.input.push(0x80);
-        // [byte]: 128 - 16(input_length) - 1(0x80) = 111
-        let padding_length = 111 - (input_length as i128);
-        match padding_length.cmp(&0) {
-            Ordering::Greater => {
-                self.input.append(&mut vec![0; padding_length as usize]);
-            }
-            Ordering::Less => {
-                self.input
-                    .append(&mut vec![0; 128 - (padding_length.abs() % 128) as usize]);
-            }
-            Ordering::Equal => (),
-        }
-        // 入力データの長さを追加
-        self.input
-            .append(&mut (8 * input_length as u128).to_be_bytes().to_vec());
-        // 64bitワードにしてpush
-        for i in (0..self.input.len()).filter(|i| i % 8 == 0) {
-            self.word_block.push(u64::from_be_bytes([
-                self.input[i],
-                self.input[i + 1],
-                self.input[i + 2],
-                self.input[i + 3],
-                self.input[i + 4],
-                self.input[i + 5],
-                self.input[i + 6],
-                self.input[i + 7],
-            ]));
-        }
-    }
+impl Sha2<u64> {
     #[allow(clippy::many_single_char_names)]
     fn round(&mut self) {
         let (mut a, mut b, mut c, mut d, mut e, mut f, mut g, mut h);
@@ -252,4 +208,9 @@ impl Sha2_64bit {
             self.status[7] = self.status[7].wrapping_add(h);
         }
     }
+}
+
+impl Sha2<u64> {
+    impl_message!(self, u128);
+    impl_md4_padding!(u64 => self, from_be_bytes, to_be_bytes, 111, {});
 }

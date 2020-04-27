@@ -1,5 +1,9 @@
 import(/* webpackChunkName: "ghash-wasm" */"../pkg").then(module => {
     const input_form = document.getElementById('input')
+    const blake224_output_form = document.getElementById('blake-224')
+    const blake256_output_form = document.getElementById('blake-256')
+    const blake384_output_form = document.getElementById('blake-384')
+    const blake512_output_form = document.getElementById('blake-512')
     const md2_output_form = document.getElementById('md2')
     const md4_output_form = document.getElementById('md4')
     const md5_output_form = document.getElementById('md5')
@@ -17,6 +21,10 @@ import(/* webpackChunkName: "ghash-wasm" */"../pkg").then(module => {
     const sha512trunc256_output_form = document.getElementById('sha-512/256')
     function calculate() {
         const input = (new TextEncoder).encode(input_form.value)
+        blake224_output_form.value = module.Blake224.hash_to_lowercase(input)
+        blake256_output_form.value = module.Blake256.hash_to_lowercase(input)
+        blake384_output_form.value = module.Blake384.hash_to_lowercase(input)
+        blake512_output_form.value = module.Blake512.hash_to_lowercase(input)
         md2_output_form.value = module.Md2.hash_to_lowercase(input)
         md4_output_form.value = module.Md4.hash_to_lowercase(input)
         md5_output_form.value = module.Md5.hash_to_lowercase(input)

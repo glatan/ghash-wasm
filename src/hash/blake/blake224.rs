@@ -1,32 +1,37 @@
-use super::Sha2;
-
+use super::Blake;
 use wasm_bindgen::prelude::*;
 
 #[rustfmt::skip]
-pub const H384: [u64; 8] = [
-    0xCBBB_9D5D_C105_9ED8, 0x629A_292A_367C_D507, 0x9159_015A_3070_DD17, 0x152F_ECD8_F70E_5939,
-    0x6733_2667_FFC0_0B31, 0x8EB4_4A87_6858_1511, 0xDB0C_2E0D_64F9_8FA7, 0x47B5_481D_BEFA_4FA4,
+const H224: [u32; 8] = [
+    0xC105_9ED8, 0x367C_D507, 0x3070_DD17, 0xF70E_5939,
+    0xFFC0_0B31, 0x6858_1511, 0x64F9_8FA7, 0xBEF_A4FA4
 ];
 
 #[wasm_bindgen]
-pub struct Sha384(Sha2<u64>);
+pub struct Blake224(Blake<u32>);
 
 #[wasm_bindgen]
-impl Sha384 {
+impl Blake224 {
     #[wasm_bindgen(constructor)]
     pub fn new() -> Self {
-        Self(Sha2::<u64> {
+        Self(Blake::<u32> {
             message: Vec::new(),
             word_block: Vec::new(),
-            status: H384,
+            salt: [0; 4],
+            l: 0,
+            h: H224,
+            t: [0; 2],
+            v: [0; 16],
+            bit: 224,
         })
     }
     fn hash_to_bytes(message: &[u8]) -> Vec<u8> {
-        let mut sha384 = Self::new();
-        sha384.0.message(message);
-        sha384.0.padding();
-        sha384.0.round();
-        sha384.0.status[0..6]
+        let mut blake224 = Self::new();
+        blake224.0.message(message);
+        blake224.0.set_counter();
+        blake224.0.padding();
+        blake224.0.compress();
+        blake224.0.h[0..7]
             .iter()
             .flat_map(|word| word.to_be_bytes().to_vec())
             .collect()

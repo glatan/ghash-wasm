@@ -1,4 +1,6 @@
+use crate::{impl_md4_padding, impl_message};
 use std::cmp::Ordering;
+use std::mem;
 
 use wasm_bindgen::prelude::*;
 
@@ -40,7 +42,7 @@ const fn round3(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32) -> u32 {
 
 #[wasm_bindgen]
 pub struct Md4 {
-    input: Vec<u8>,
+    message: Vec<u8>,
     word_block: Vec<u32>,
     status: [u32; 4],
 }
@@ -50,13 +52,10 @@ impl Md4 {
     #[wasm_bindgen(constructor)]
     pub fn new() -> Self {
         Self {
-            input: Vec::new(),
+            message: Vec::new(),
             word_block: Vec::new(),
             status: WORD_BUFFER,
         }
-    }
-    fn padding(&mut self) {
-        self.word_block = Self::md4_padding(&mut self.input);
     }
     #[allow(clippy::many_single_char_names)]
     fn round(&mut self) {
@@ -103,9 +102,9 @@ impl Md4 {
             self.status[i] = self.status[i].swap_bytes();
         }
     }
-    fn hash(input: &[u8]) -> Vec<u8> {
+    fn hash_to_bytes(message: &[u8]) -> Vec<u8> {
         let mut md4 = Self::new();
-        md4.input = input.to_vec();
+        md4.message(message);
         md4.padding();
         md4.round();
         md4.status[0..4]
@@ -114,54 +113,15 @@ impl Md4 {
             .collect()
     }
     #[wasm_bindgen]
-    pub fn hash_to_lowercase(input: &[u8]) -> String {
-        Self::hash(input)
+    pub fn hash_to_lowercase(message: &[u8]) -> String {
+        Self::hash_to_bytes(message)
             .iter()
             .map(|byte| format!("{:02x}", byte))
             .collect()
     }
 }
 
-// MD4と同様、又はほぼ同様のパディングを行うハッシュ関数が多いため、このような実装になっている。
-pub(super) trait Md4Padding {
-    fn u64_to_bytes(num: u64) -> [u8; 8];
-    fn u32_from_bytes(bytes: [u8; 4]) -> u32;
-    fn md4_padding(input: &mut Vec<u8>) -> Vec<u32> {
-        let mut word_block = Vec::new();
-        let input_length = input.len();
-        // 入力末尾に0x80を追加(0b1000_0000)
-        input.push(0x80);
-        // [byte]: 64 - 8(input_length) - 1(0x80) = 55
-        let padding_length = 55 - (input_length as i128);
-        match padding_length.cmp(&0) {
-            Ordering::Greater => {
-                input.append(&mut vec![0; padding_length as usize]);
-            }
-            Ordering::Less => {
-                input.append(&mut vec![0; 64 - (padding_length.abs() % 64) as usize]);
-            }
-            Ordering::Equal => (),
-        }
-        // 入力データの長さを追加
-        input.append(&mut Self::u64_to_bytes(8 * input_length as u64).to_vec());
-        // バイト列からワードブロックを生成
-        for i in (0..input.len()).filter(|i| i % 4 == 0) {
-            word_block.push(Self::u32_from_bytes([
-                input[i],
-                input[i + 1],
-                input[i + 2],
-                input[i + 3],
-            ]));
-        }
-        word_block
-    }
-}
-
-impl Md4Padding for Md4 {
-    fn u64_to_bytes(num: u64) -> [u8; 8] {
-        num.to_le_bytes()
-    }
-    fn u32_from_bytes(bytes: [u8; 4]) -> u32 {
-        u32::from_le_bytes(bytes)
-    }
+impl Md4 {
+    impl_message!(self, u64);
+    impl_md4_padding!(u32 => self, from_le_bytes, to_le_bytes, 55, {});
 }

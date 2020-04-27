@@ -1,4 +1,6 @@
-use super::Md4Padding;
+use crate::{impl_md4_padding, impl_message};
+use std::cmp::Ordering;
+use std::mem;
 
 use wasm_bindgen::prelude::*;
 
@@ -78,7 +80,7 @@ const fn round4(a: u32, b: u32, c: u32, d: u32, k: u32, s: u32, t: u32) -> u32 {
 
 #[wasm_bindgen]
 pub struct Md5 {
-    input: Vec<u8>,
+    message: Vec<u8>,
     word_block: Vec<u32>,
     status: [u32; 4],
 }
@@ -88,14 +90,12 @@ impl Md5 {
     #[wasm_bindgen(constructor)]
     pub fn new() -> Self {
         Self {
-            input: Vec::new(),
+            message: Vec::new(),
             word_block: Vec::new(),
             status: WORD_BUFFER,
         }
     }
-    fn padding(&mut self) {
-        self.word_block = Self::md4_padding(&mut self.input);
-    }
+
     #[allow(clippy::many_single_char_names)]
     fn round(&mut self) {
         let word_block_length = self.word_block.len() / 16;
@@ -188,9 +188,9 @@ impl Md5 {
             self.status[i] = self.status[i].swap_bytes();
         }
     }
-    fn hash(input: &[u8]) -> Vec<u8> {
+    fn hash_to_bytes(message: &[u8]) -> Vec<u8> {
         let mut md5 = Self::new();
-        md5.input = input.to_vec();
+        md5.message(message);
         md5.padding();
         md5.round();
         md5.status[0..4]
@@ -199,19 +199,15 @@ impl Md5 {
             .collect()
     }
     #[wasm_bindgen]
-    pub fn hash_to_lowercase(input: &[u8]) -> String {
-        Self::hash(input)
+    pub fn hash_to_lowercase(message: &[u8]) -> String {
+        Self::hash_to_bytes(message)
             .iter()
             .map(|byte| format!("{:02x}", byte))
             .collect()
     }
 }
 
-impl Md4Padding for Md5 {
-    fn u64_to_bytes(num: u64) -> [u8; 8] {
-        num.to_le_bytes()
-    }
-    fn u32_from_bytes(bytes: [u8; 4]) -> u32 {
-        u32::from_le_bytes(bytes)
-    }
+impl Md5 {
+    impl_message!(self, u64);
+    impl_md4_padding!(u32 => self, from_le_bytes, to_le_bytes, 55, {});
 }

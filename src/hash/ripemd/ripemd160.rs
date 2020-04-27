@@ -1,5 +1,7 @@
-use super::Md4Padding;
 use super::{f, K160_LEFT, K160_RIGHT, R_LEFT, R_RIGHT, S_LEFT, S_RIGHT};
+use crate::{impl_md4_padding, impl_message};
+use std::cmp::Ordering;
+use std::mem;
 
 use wasm_bindgen::prelude::*;
 
@@ -13,7 +15,7 @@ const H: [u32; 5] = [
 
 #[wasm_bindgen]
 pub struct Ripemd160 {
-    input: Vec<u8>,
+    message: Vec<u8>,
     word_block: Vec<u32>,
     status: [u32; 5],
 }
@@ -23,13 +25,10 @@ impl Ripemd160 {
     #[wasm_bindgen(constructor)]
     pub fn new() -> Self {
         Self {
-            input: Vec::new(),
+            message: Vec::new(),
             word_block: Vec::new(),
             status: H,
         }
-    }
-    fn padding(&mut self) {
-        self.word_block = Self::md4_padding(&mut self.input);
     }
     fn round(&mut self) {
         let mut t;
@@ -68,9 +67,9 @@ impl Ripemd160 {
             self.status[0] = t;
         }
     }
-    fn hash(input: &[u8]) -> Vec<u8> {
+    fn hash_to_bytes(message: &[u8]) -> Vec<u8> {
         let mut ripemd160 = Self::new();
-        ripemd160.input = input.to_vec();
+        ripemd160.message(message);
         ripemd160.padding();
         ripemd160.round();
         ripemd160
@@ -80,19 +79,15 @@ impl Ripemd160 {
             .collect()
     }
     #[wasm_bindgen]
-    pub fn hash_to_lowercase(input: &[u8]) -> String {
-        Self::hash(input)
+    pub fn hash_to_lowercase(message: &[u8]) -> String {
+        Self::hash_to_bytes(message)
             .iter()
             .map(|byte| format!("{:02x}", byte))
             .collect()
     }
 }
 
-impl Md4Padding for Ripemd160 {
-    fn u64_to_bytes(num: u64) -> [u8; 8] {
-        num.to_le_bytes()
-    }
-    fn u32_from_bytes(bytes: [u8; 4]) -> u32 {
-        u32::from_le_bytes(bytes)
-    }
+impl Ripemd160 {
+    impl_message!(self, u64);
+    impl_md4_padding!(u32 => self, from_le_bytes, to_le_bytes, 55, {});
 }

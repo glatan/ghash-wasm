@@ -1,4 +1,4 @@
-use super::Sha2_64bit;
+use super::Sha2;
 
 use wasm_bindgen::prelude::*;
 
@@ -9,29 +9,23 @@ pub const H512_TRUNC_224: [u64; 8] = [
 ];
 
 #[wasm_bindgen]
-pub struct Sha512Trunc224(Sha2_64bit);
+pub struct Sha512Trunc224(Sha2<u64>);
 
 #[wasm_bindgen]
 impl Sha512Trunc224 {
     #[wasm_bindgen(constructor)]
     pub fn new() -> Self {
-        Self(Sha2_64bit {
-            input: Vec::new(),
+        Self(Sha2::<u64> {
+            message: Vec::new(),
             word_block: Vec::new(),
             status: H512_TRUNC_224,
         })
     }
-    fn padding(&mut self) {
-        self.0.padding();
-    }
-    fn round(&mut self) {
-        self.0.round();
-    }
-    fn hash(input: &[u8]) -> Vec<u8> {
+    fn hash_to_bytes(message: &[u8]) -> Vec<u8> {
         let mut sha512trunc224 = Self::new();
-        sha512trunc224.0.input = input.to_vec();
-        sha512trunc224.padding();
-        sha512trunc224.round();
+        sha512trunc224.0.message(message);
+        sha512trunc224.0.padding();
+        sha512trunc224.0.round();
         sha512trunc224.0.status[0..4]
             .iter()
             .flat_map(|word| word.to_be_bytes().to_vec())
@@ -39,8 +33,8 @@ impl Sha512Trunc224 {
             .collect()
     }
     #[wasm_bindgen]
-    pub fn hash_to_lowercase(input: &[u8]) -> String {
-        Self::hash(input)
+    pub fn hash_to_lowercase(message: &[u8]) -> String {
+        Self::hash_to_bytes(message)
             .iter()
             .map(|byte| format!("{:02x}", byte))
             .collect()
