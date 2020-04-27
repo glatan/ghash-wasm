@@ -1,4 +1,4 @@
-use super::Sha2_32bit;
+use super::Sha2;
 
 use wasm_bindgen::prelude::*;
 
@@ -9,14 +9,14 @@ pub const H224: [u32; 8] = [
 ];
 
 #[wasm_bindgen]
-pub struct Sha224(Sha2_32bit);
+pub struct Sha224(Sha2<u32>);
 
 #[wasm_bindgen]
 impl Sha224 {
     #[wasm_bindgen(constructor)]
     pub fn new() -> Self {
-        Self(Sha2_32bit {
-            input: Vec::new(),
+        Self(Sha2::<u32> {
+            message: Vec::new(),
             word_block: Vec::new(),
             status: H224,
         })
@@ -27,9 +27,9 @@ impl Sha224 {
     fn round(&mut self) {
         self.0.round();
     }
-    fn hash(input: &[u8]) -> Vec<u8> {
+    fn hash_to_bytes(message: &[u8]) -> Vec<u8> {
         let mut sha224 = Self::new();
-        sha224.0.input = input.to_vec();
+        sha224.0.message(message);
         sha224.padding();
         sha224.round();
         sha224.0.status[0..7]
@@ -38,8 +38,8 @@ impl Sha224 {
             .collect()
     }
     #[wasm_bindgen]
-    pub fn hash_to_lowercase(input: &[u8]) -> String {
-        Self::hash(input)
+    pub fn hash_to_lowercase(message: &[u8]) -> String {
+        Self::hash_to_bytes(message)
             .iter()
             .map(|byte| format!("{:02x}", byte))
             .collect()

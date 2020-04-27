@@ -1,4 +1,6 @@
-use super::Md4Padding;
+use crate::{impl_md4_padding, impl_message};
+use std::cmp::Ordering;
+use std::mem;
 
 use wasm_bindgen::prelude::*;
 
@@ -37,7 +39,7 @@ const fn maj(b: u32, c: u32, d: u32) -> u32 {
 
 #[wasm_bindgen]
 pub struct Sha1 {
-    input: Vec<u8>,
+    message: Vec<u8>,
     word_block: Vec<u32>,
     status: [u32; 5],
 }
@@ -47,14 +49,12 @@ impl Sha1 {
     #[wasm_bindgen(constructor)]
     pub fn new() -> Self {
         Self {
-            input: Vec::new(),
+            message: Vec::new(),
             word_block: Vec::new(),
             status: H,
         }
     }
-    fn padding(&mut self) {
-        self.word_block = Self::md4_padding(&mut self.input);
-    }
+
     #[allow(clippy::many_single_char_names, clippy::needless_range_loop)]
     fn round(&mut self) {
         let (mut a, mut b, mut c, mut d, mut e);
@@ -135,9 +135,9 @@ impl Sha1 {
             self.status[4] = self.status[4].wrapping_add(e);
         }
     }
-    fn hash(input: &[u8]) -> Vec<u8> {
+    fn hash_to_bytes(message: &[u8]) -> Vec<u8> {
         let mut sha1 = Self::new();
-        sha1.input = input.to_vec();
+        sha1.message(message);
         sha1.padding();
         sha1.round();
         sha1.status
@@ -146,19 +146,15 @@ impl Sha1 {
             .collect()
     }
     #[wasm_bindgen]
-    pub fn hash_to_lowercase(input: &[u8]) -> String {
-        Self::hash(input)
+    pub fn hash_to_lowercase(message: &[u8]) -> String {
+        Self::hash_to_bytes(message)
             .iter()
             .map(|byte| format!("{:02x}", byte))
             .collect()
     }
 }
 
-impl Md4Padding for Sha1 {
-    fn u64_to_bytes(num: u64) -> [u8; 8] {
-        num.to_be_bytes()
-    }
-    fn u32_from_bytes(bytes: [u8; 4]) -> u32 {
-        u32::from_be_bytes(bytes)
-    }
+impl Sha1 {
+    impl_message!(self, u64);
+    impl_md4_padding!(u32 => self, from_be_bytes, to_be_bytes, 55, {});
 }

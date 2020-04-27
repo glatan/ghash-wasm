@@ -1,5 +1,3 @@
-use super::Md4Padding;
-
 mod ripemd128;
 mod ripemd160;
 mod ripemd256;

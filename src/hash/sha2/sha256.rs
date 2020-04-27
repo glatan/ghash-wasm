@@ -1,4 +1,4 @@
-use super::Sha2_32bit;
+use super::Sha2;
 
 use wasm_bindgen::prelude::*;
 
@@ -9,14 +9,14 @@ pub const H256: [u32; 8] = [
 ];
 
 #[wasm_bindgen]
-pub struct Sha256(Sha2_32bit);
+pub struct Sha256(Sha2<u32>);
 
 #[wasm_bindgen]
 impl Sha256 {
     #[wasm_bindgen(constructor)]
     pub fn new() -> Self {
-        Self(Sha2_32bit {
-            input: Vec::new(),
+        Self(Sha2::<u32> {
+            message: Vec::new(),
             word_block: Vec::new(),
             status: H256,
         })
@@ -27,9 +27,9 @@ impl Sha256 {
     fn round(&mut self) {
         self.0.round();
     }
-    fn hash(input: &[u8]) -> Vec<u8> {
+    fn hash_to_bytes(message: &[u8]) -> Vec<u8> {
         let mut sha256 = Self::new();
-        sha256.0.input = input.to_vec();
+        sha256.0.message(message);
         sha256.padding();
         sha256.round();
         sha256
@@ -40,8 +40,8 @@ impl Sha256 {
             .collect()
     }
     #[wasm_bindgen]
-    pub fn hash_to_lowercase(input: &[u8]) -> String {
-        Self::hash(input)
+    pub fn hash_to_lowercase(message: &[u8]) -> String {
+        Self::hash_to_bytes(message)
             .iter()
             .map(|byte| format!("{:02x}", byte))
             .collect()

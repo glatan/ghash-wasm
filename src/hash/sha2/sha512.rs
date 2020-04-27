@@ -1,4 +1,4 @@
-use super::Sha2_64bit;
+use super::Sha2;
 
 use wasm_bindgen::prelude::*;
 
@@ -9,14 +9,14 @@ pub const H512: [u64; 8] = [
 ];
 
 #[wasm_bindgen]
-pub struct Sha512(Sha2_64bit);
+pub struct Sha512(Sha2<u64>);
 
 #[wasm_bindgen]
 impl Sha512 {
     #[wasm_bindgen(constructor)]
     pub fn new() -> Self {
-        Self(Sha2_64bit {
-            input: Vec::new(),
+        Self(Sha2::<u64> {
+            message: Vec::new(),
             word_block: Vec::new(),
             status: H512,
         })
@@ -27,9 +27,9 @@ impl Sha512 {
     fn round(&mut self) {
         self.0.round();
     }
-    fn hash(input: &[u8]) -> Vec<u8> {
+    fn hash_to_bytes(message: &[u8]) -> Vec<u8> {
         let mut sha512 = Self::new();
-        sha512.0.input = input.to_vec();
+        sha512.0.message(message);
         sha512.padding();
         sha512.round();
         sha512
@@ -40,8 +40,8 @@ impl Sha512 {
             .collect()
     }
     #[wasm_bindgen]
-    pub fn hash_to_lowercase(input: &[u8]) -> String {
-        Self::hash(input)
+    pub fn hash_to_lowercase(message: &[u8]) -> String {
+        Self::hash_to_bytes(message)
             .iter()
             .map(|byte| format!("{:02x}", byte))
             .collect()
