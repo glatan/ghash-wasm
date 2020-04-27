@@ -21,17 +21,11 @@ impl Sha224 {
             status: H224,
         })
     }
-    fn padding(&mut self) {
-        self.0.padding();
-    }
-    fn round(&mut self) {
-        self.0.round();
-    }
     fn hash_to_bytes(message: &[u8]) -> Vec<u8> {
         let mut sha224 = Self::new();
         sha224.0.message(message);
-        sha224.padding();
-        sha224.round();
+        sha224.0.padding();
+        sha224.0.round();
         sha224.0.status[0..7]
             .iter()
             .flat_map(|word| word.to_be_bytes().to_vec())
