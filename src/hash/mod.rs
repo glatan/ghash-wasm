@@ -1,3 +1,4 @@
+mod blake;
 mod md2;
 mod md4;
 mod md5;
@@ -6,6 +7,7 @@ mod sha0;
 mod sha1;
 mod sha2;
 
+pub use blake::{Blake224, Blake256, Blake384, Blake512};
 pub use md2::Md2;
 pub use md4::Md4;
 pub use md5::Md5;
