@@ -29,5 +29,6 @@ RUN \
 RUN \
     mkdir src && \
     touch src/lib.rs && \
+    cargo build && \
     cargo build --release && \
     rm -r src/
