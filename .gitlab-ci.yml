@@ -4,7 +4,7 @@ stages:
 variables:
   CARGO_HOME: ${CI_PROJECT_DIR}/cargo
 
-  cache:
+cache:
   paths:
     - cargo/
     - target/
