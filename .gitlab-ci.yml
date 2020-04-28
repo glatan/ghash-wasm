@@ -9,9 +9,8 @@ cache:
     - cargo/
     - target/
 
-stable-wasm32-unknown-unknown:
+.wasm32-unknown-unknown: &wasm32-unknown-unknown
   stage: test
-  image: amd64/rust:slim-buster
   before_script:
     - rustc --version
     - rustup target add wasm32-unknown-unknown
@@ -20,3 +19,11 @@ stable-wasm32-unknown-unknown:
     - cargo install wasm-bindgen-cli --target x86_64-unknown-linux-gnu
   script:
     - cargo test --verbose
+
+stable-wasm32-unknown-unknown:
+  image: amd64/rust:slim-buster
+  <<: *wasm32-unknown-unknown
+
+nightly-wasm32-unknown-unknown:
+  image: rustlang/rust:nightly-buster-slim
+  <<: *wasm32-unknown-unknown
