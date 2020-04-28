@@ -1,6 +1,14 @@
 stages:
   - test
 
+variables:
+  CARGO_HOME: ${CI_PROJECT_DIR}/cargo
+
+  cache:
+  paths:
+    - cargo/
+    - target/
+
 stable-wasm32-unknown-unknown:
   stage: test
   image: amd64/rust:slim-buster
