@@ -17,6 +17,6 @@ stable-wasm32-unknown-unknown:
     - rustup target add wasm32-unknown-unknown
     - apt update -y
     - apt install -y libssl-dev pkg-config
-    - cargo install wasm-bindgen-cli
+    - cargo install wasm-bindgen-cli --target x86_64-unknown-linux-gnu
   script:
     - cargo test --verbose
