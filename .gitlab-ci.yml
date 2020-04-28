@@ -1,0 +1,12 @@
+stages:
+  - test
+
+stable-wasm32-unknown-unknown:
+  stage: test
+  image: amd64/rust:slim-buster
+  before-script:
+    - apt update -y
+    - apt install -y libssl-dev pkg-config
+    - cargo install wasm-bindgen-cli
+  script:
+    - cargo test --verbose
