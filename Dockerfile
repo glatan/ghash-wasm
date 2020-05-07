@@ -2,26 +2,14 @@ FROM node:14-buster-slim
 
 WORKDIR /workdir
 
-ENV CARGO_HOME "/cargo"
-ENV PATH "/cargo/bin:$PATH"
-
-ENV WASMPACK_VERSION '0.9.1'
-
-COPY Cargo.toml .
+COPY init.sh .
 
 RUN \
     apt update -y && \
     apt install -y \
         curl gcc gzip tar && \
-    # setup stable version of Rust
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o rustup-init.sh && \
-    sh rustup-init.sh -y \
-        --default-host x86_64-unknown-linux-gnu \
-        --default-toolchain stable \ 
-        -t wasm32-unknown-unknown && \
-    # install wasm-pack
-    curl -L "https://github.com/rustwasm/wasm-pack/releases/download/v${WASMPACK_VERSION}/wasm-pack-v${WASMPACK_VERSION}-x86_64-unknown-linux-musl.tar.gz" | tar xz && \
-    cp wasm-pack-v${WASMPACK_VERSION}-x86_64-unknown-linux-musl/wasm-pack /usr/bin && \
+    # init
+    ./init.sh && \
     # cache clear
     apt clean -y && \
     rm -rf /var/lib/apt/lists/*
