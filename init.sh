@@ -1,6 +1,8 @@
 #! /usr/bin/env bash
 
 export WASMPACK_VERSION='0.9.1'
+export CARGO_HOME='/cargo'
+echo "export PATH=\"${PATH}:${CARGO_HOME}/bin\"" >> /etc/profile
 
 # setup stable version of Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o rustup-init.sh
