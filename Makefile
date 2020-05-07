@@ -20,7 +20,7 @@ build:
 	@-podman run --name ${@} -v .:${WORKDIR} -w ${WORKDIR} -it ${NAME} npm run build
 	@podman rm ${@}
 
-.PHONY: run-bash
-run-bash:
+.PHONY: run/bash
+run/bash:
 	@-podman run --name ${@} -v .:${WORKDIR} -w ${WORKDIR} -it ${NAME} bash
 	@podman rm ${@}
