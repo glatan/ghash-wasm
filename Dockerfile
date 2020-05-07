@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM node:14-buster-slim
 
 WORKDIR /workdir
 
@@ -12,8 +12,8 @@ COPY Cargo.toml .
 RUN \
     apt update -y && \
     apt install -y \
-        curl gcc gzip tar npm && \
-    # rust setup
+        curl gcc gzip tar && \
+    # setup stable version of Rust
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o rustup-init.sh && \
     sh rustup-init.sh -y \
         --default-host x86_64-unknown-linux-gnu \
@@ -25,10 +25,3 @@ RUN \
     # cache clear
     apt clean -y && \
     rm -rf /var/lib/apt/lists/*
-
-RUN \
-    mkdir src && \
-    touch src/lib.rs && \
-    cargo build && \
-    cargo build --release && \
-    rm -r src/
