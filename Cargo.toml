@@ -20,5 +20,8 @@ ghash = { git = "https://gitlab.com/glatan/ghash", branch = "master" }
 wasm-bindgen-test = "0.3"
 wasm-bindgen-futures = "0.4"
 
+[profile.release]
+lto = true
+
 [package.metadata.wasm-pack.profile.release]
 wasm-opt = ['-O4']
