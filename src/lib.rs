@@ -19,7 +19,7 @@ impl Component for Form {
     type Properties = ();
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
         Self {
-            link: link,
+            link,
             value: String::new(),
         }
     }

@@ -49,7 +49,7 @@ impl Component for Digest {
     type Properties = Props;
     fn create(props: Self::Properties, link: ComponentLink<Self>) -> Self {
         Self {
-            link: link,
+            link,
             hash_type: props.hash_type,
             value: hash_to_lowerhex(&props.hash_type, ""),
             oninput: props.oninput,
