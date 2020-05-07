@@ -16,7 +16,7 @@ module.exports = {
   },
   devServer: {
     contentBase: distPath,
-    port: 8000
+    port: 8080
   },
   plugins: [
     new CopyPlugin([
