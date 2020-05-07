@@ -18,6 +18,18 @@ module.exports = {
     contentBase: distPath,
     port: 8080
   },
+  module: {
+    rules: [
+      {
+        test: /\.scss/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ],
+      },
+    ],
+  },
   plugins: [
     new CopyPlugin([
       path.resolve(__dirname, "static")

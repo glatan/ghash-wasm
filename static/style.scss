@@ -1,0 +1,94 @@
+$BLACK: #010101;
+$LIGHT_BLACK: #CDCDCD;
+
+:root {
+    background-color: #FEFEFE;
+    h1, h2, h3, h4, h5, p, :link, :visited {
+        color: $BLACK;
+    }
+    h1 {
+        font-size: 46px;
+        font-weight: bold;
+    }
+    h2 {
+        font-size: 32px;
+        font-weight: bold;
+    }
+    h3 {
+        font-size: 24px;
+        font-weight: 500;
+    }
+    h4 {
+        font-size: 20px;
+        font-weight: 500;
+    }
+    h5 {
+        font-size: 16px;
+        font-weight: normal;
+    }
+    p, span {
+        font-size: 18px;
+        font-weight: normal;
+    }
+    strong {
+        font-size: 18px;
+    }
+    :link, :visited {
+        text-decoration: underline;
+    }
+}
+
+main {
+    max-width: 54rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+textarea {
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 10rem;
+}
+
+form {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+table {
+    max-width: 100%;
+    min-width: 100%;
+    border-collapse: collapse;
+}
+
+col:first-child {
+    width: 15%;
+}
+
+th, td {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: 16px;
+    word-break: break-word;
+}
+
+th:first-child {
+    min-width: 7rem;
+    text-align: left;
+}
+
+tbody > tr {
+    border-top: 1px $LIGHT_BLACK solid;
+    border-bottom: 1px $LIGHT_BLACK solid;
+}
+
+tbody > tr:first-child {
+    padding: 1em;
+    border-bottom: 1px $LIGHT_BLACK solid;
+}
+
+tbody > tr:last-child {
+    border-top: 1px $LIGHT_BLACK solid;
+}

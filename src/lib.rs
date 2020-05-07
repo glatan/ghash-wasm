@@ -63,7 +63,7 @@ impl Component for Form {
             }
         };
         html! {
-            <>
+            <main>
                 <form>
                     <textarea
                     value=&self.value
@@ -73,15 +73,15 @@ impl Component for Form {
                 <table>
                     <thead>
                         <tr>
-                            <th>{ "アルゴリズム" }</th>
-                            <th>{ "値" }</th>
+                            <th>{ "Algorithm" }</th>
+                            <th>{ "Digest" }</th>
                         </tr>
                     </thead>
                     <tbody>
                         { supported_types.iter().map(|t| digest(t)).collect::<Html>() }
                     </tbody>
                 </table>
-            </>
+            </main>
         }
     }
 }
