@@ -5,7 +5,7 @@
     "license": "GPL-3.0",
     "scripts": {
         "build": "rimraf dist && webpack --mode production",
-        "start": "rimraf dist && webpack-dev-server --mode development --hot --host 0.0.0.0",
+        "start": "webpack-dev-server --mode development --hot --host 0.0.0.0",
         "test": "cargo test && wasm-pack test --node"
     },
     "devDependencies": {
