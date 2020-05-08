@@ -32,7 +32,7 @@ module.exports = {
   },
   plugins: [
     new CopyPlugin([
-      path.resolve(__dirname, "static")
+      {from: './static/', to: distPath, ignore: ['*.scss']}
     ]),
     new WasmPlugin({
       crateDirectory: ".",
