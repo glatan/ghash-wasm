@@ -1,20 +1,23 @@
-mod digest;
+#![recursion_limit = "2048"]
 
+mod component;
+
+use component::statics::*;
+
+use ghash::*;
 use wasm_bindgen::prelude::*;
 use yew::{html, Component, ComponentLink, Html, InputData, ShouldRender};
 
-use digest::{Digest, HashType};
-
-struct Form {
+struct App {
     link: ComponentLink<Self>,
     value: String,
 }
 
 enum Msg {
-    Input(String),
+    OnInput(String),
 }
 
-impl Component for Form {
+impl Component for App {
     type Message = Msg;
     type Properties = ();
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
@@ -25,63 +28,113 @@ impl Component for Form {
     }
     fn update(&mut self, msg: Self::Message) -> ShouldRender {
         match msg {
-            Msg::Input(value) => self.value = value,
+            Msg::OnInput(input) => {
+                self.value = input;
+                true
+            }
         }
-        true
     }
     fn change(&mut self, _props: Self::Properties) -> ShouldRender {
         false
     }
     fn view(&self) -> Html {
-        let supported_types = [
-            HashType::Blake224,
-            HashType::Blake256,
-            HashType::Blake384,
-            HashType::Blake512,
-            HashType::Md2,
-            HashType::Md4,
-            HashType::Md5,
-            HashType::Ripemd128,
-            HashType::Ripemd160,
-            HashType::Ripemd256,
-            HashType::Ripemd320,
-            HashType::Sha0,
-            HashType::Sha1,
-            HashType::Sha224,
-            HashType::Sha256,
-            HashType::Sha384,
-            HashType::Sha512,
-            HashType::Sha512Trunc224,
-            HashType::Sha512Trunc256,
-        ];
-        let digest = |t| {
-            html! {
-                <Digest
-                    hash_type=t
-                    oninput=self.link.callback(Msg::Input)
-                />
-            }
-        };
         html! {
+            <>
+            { header() }
             <main>
-                <form>
-                    <textarea
-                    value=&self.value
-                    oninput=self.link.callback(|e: InputData| Msg::Input(e.value))>
-                    </textarea>
-                </form>
+            <textarea
+                value=&self.value
+                oninput=self.link.callback(|m: InputData| Msg::OnInput(m.value)),
+            >
+            </textarea>
                 <table>
                     <thead>
                         <tr>
-                            <th>{ "Algorithm" }</th>
+                            <th>{ "Algorithms" }</th>
                             <th>{ "Digest" }</th>
                         </tr>
                     </thead>
                     <tbody>
-                        { supported_types.iter().map(|t| digest(t)).collect::<Html>() }
+                        <tr>
+                            <td>{ "BLAKE-224" }</td>
+                            <td>{ Blake224::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "BLAKE-256" }</td>
+                            <td>{ Blake256::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "BLAKE-384" }</td>
+                            <td>{ Blake384::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "BLAKE-512" }</td>
+                            <td>{ Blake512::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "MD2" }</td>
+                            <td>{ Md2::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "MD4" }</td>
+                            <td>{ Md4::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "MD5" }</td>
+                            <td>{ Md5::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "RIPEMD-128" }</td>
+                            <td>{ Ripemd128::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "RIPEMD-160" }</td>
+                            <td>{ Ripemd160::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "RIPEMD-256" }</td>
+                            <td>{ Ripemd256::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "RIPEMD-320" }</td>
+                            <td>{ Ripemd320::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "SHA-0" }</td>
+                            <td>{ Sha0::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "SHA-1" }</td>
+                            <td>{ Sha1::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "SHA-224" }</td>
+                            <td>{ Sha224::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "SHA-256" }</td>
+                            <td>{ Sha256::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "SHA-384" }</td>
+                            <td>{ Sha384::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "SHA-512" }</td>
+                            <td>{ Sha512::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "SHA-512/224" }</td>
+                            <td>{ Sha512Trunc224::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "SHA-512/256" }</td>
+                            <td>{ Sha512Trunc256::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
                     </tbody>
                 </table>
             </main>
+            </>
         }
     }
 }
@@ -89,5 +142,5 @@ impl Component for Form {
 #[wasm_bindgen(start)]
 pub fn run_app() {
     yew::initialize();
-    yew::start_app::<Form>();
+    yew::start_app::<App>();
 }
