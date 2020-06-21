@@ -1,0 +1,103 @@
+$BLACK: #010101;
+$LIGHT_BLACK: #CDCDCD;
+
+:root {
+    background-color: #FEFEFE;
+    font-family: 'monospace';
+    h1, h2, h3, h4, h5, p, :link, :visited {
+        color: $BLACK;
+    }
+    p, span {
+        font-size: 18px;
+        font-weight: normal;
+    }
+    strong {
+        font-size: 18px;
+    }
+    :link, :visited {
+        text-decoration: underline;
+    }
+}
+
+body {
+    margin: 0;
+}
+
+header, footer {
+    align-items: center;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 54rem;
+}
+
+.title {
+    p {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    margin-right: 3rem;
+}
+
+footer {
+    font-family: 'sans-serif';
+    justify-content: center;
+    margin-bottom: 3rem;
+    margin-top: 3rem;
+    p {
+        font-size: 15px;
+    }
+}
+
+main {
+    max-width: 54rem;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+textarea {
+    max-width: 100%;
+    min-height: 10rem;
+    min-width: 100%;
+}
+
+form {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+table {
+    border-collapse: collapse;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+col:first-child {
+    width: 15%;
+}
+
+th, td {
+    font-size: 16px;
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+    word-break: break-word;
+}
+
+th:first-child {
+    min-width: 7rem;
+    text-align: left;
+}
+
+tbody > tr {
+    border-bottom: 1px $LIGHT_BLACK solid;
+    border-top: 1px $LIGHT_BLACK solid;
+}
+
+tbody > tr:first-child {
+    border-bottom: 1px $LIGHT_BLACK solid;
+    padding: 1em;
+}
+
+tbody > tr:last-child {
+    border-top: 1px $LIGHT_BLACK solid;
+}
