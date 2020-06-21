@@ -50,7 +50,7 @@ impl Component for App {
                 <table>
                     <thead>
                         <tr>
-                            <th>{ "Algorithms" }</th>
+                            <th>{ "Algorithm" }</th>
                             <th>{ "Digest" }</th>
                         </tr>
                     </thead>
