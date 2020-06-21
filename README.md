@@ -2,7 +2,7 @@
 
 WebAssembly application of [Ghash](http://www.gitlab.com/glatan/ghash)
 
-(https://ghash.glatan.vercel.app/)[https://ghash.glatan.vercel.app/]
+https://ghash.glatan.vercel.app/
 
 ## Makefile
 
