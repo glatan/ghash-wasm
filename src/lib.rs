@@ -134,6 +134,7 @@ impl Component for App {
                     </tbody>
                 </table>
             </main>
+            { footer() }
             </>
         }
     }
