@@ -1,15 +1,12 @@
-FROM node:14-buster-slim
+FROM amazonlinux:2
 
 WORKDIR /workdir
 
 COPY init.sh .
 
 RUN \
-    apt update -y && \
-    apt install -y \
-        curl gcc gzip tar && \
-    # init
-    ./init.sh && \
-    # cache clear
-    apt clean -y && \
-    rm -rf /var/lib/apt/lists/*
+    curl -sL https://rpm.nodesource.com/setup_14.x | bash - && \
+    yum update -y && \
+    yum install -y \
+        gcc gzip nodejs tar && \
+    ./init.sh

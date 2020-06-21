@@ -1,4 +1,4 @@
-NAME = ghash
+NAME = ghash-wasm
 WORKDIR = /workdir
 
 .PHONY: p.build
