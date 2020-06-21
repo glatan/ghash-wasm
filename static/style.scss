@@ -3,28 +3,9 @@ $LIGHT_BLACK: #CDCDCD;
 
 :root {
     background-color: #FEFEFE;
+    font-family: 'monospace', 'sans-serif';
     h1, h2, h3, h4, h5, p, :link, :visited {
         color: $BLACK;
-    }
-    h1 {
-        font-size: 46px;
-        font-weight: bold;
-    }
-    h2 {
-        font-size: 32px;
-        font-weight: bold;
-    }
-    h3 {
-        font-size: 24px;
-        font-weight: 500;
-    }
-    h4 {
-        font-size: 20px;
-        font-weight: 500;
-    }
-    h5 {
-        font-size: 16px;
-        font-weight: normal;
     }
     p, span {
         font-size: 18px;
@@ -38,9 +19,27 @@ $LIGHT_BLACK: #CDCDCD;
     }
 }
 
+body {
+    margin: 0;
+}
+
+header {
+    max-width: 54rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    .title {
+        p {
+            font-weight: bold;
+            font-size: 24px;
+        }
+        margin-right: 3rem;
+    }
+}
+
 main {
     max-width: 54rem;
-    margin-top: 3rem;
     margin-bottom: 3rem;
     margin-right: auto;
     margin-left: auto;
