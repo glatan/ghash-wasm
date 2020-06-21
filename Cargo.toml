@@ -1,5 +1,5 @@
 [package]
-name = "ghash"
+name = "ghash-wasm"
 description = "Ghash example App"
 version = "0.0.1"
 authors = ["glatan <glatan.edu@gmail.com>"]
@@ -12,7 +12,7 @@ edition = "2018"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-yew = "0.15"
+yew = "0.16"
 wasm-bindgen = "0.2"
 ghash = { git = "https://gitlab.com/glatan/ghash", branch = "master" }
 
