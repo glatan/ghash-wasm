@@ -1,4 +1,4 @@
-#![recursion_limit = "2048"]
+#![recursion_limit = "4096"]
 
 mod component;
 
@@ -55,6 +55,22 @@ impl Component for App {
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td>{ "BLAKE-28" }</td>
+                            <td>{ Blake28::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "BLAKE-32" }</td>
+                            <td>{ Blake32::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "BLAKE-48" }</td>
+                            <td>{ Blake48::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "BLAKE-64" }</td>
+                            <td>{ Blake64::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
                         <tr>
                             <td>{ "BLAKE-224" }</td>
                             <td>{ Blake224::hash_to_lowerhex(&self.value.as_bytes()) }</td>
