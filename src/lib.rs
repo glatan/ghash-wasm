@@ -163,6 +163,22 @@ impl Component for App {
                             <td>{ "SHA-512/256" }</td>
                             <td>{ Sha512Trunc256::hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
+                        <tr>
+                            <td>{ "SHA3-224" }</td>
+                            <td>{ Sha3_224::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "SHA3-256" }</td>
+                            <td>{ Sha3_256::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "SHA3-384" }</td>
+                            <td>{ Sha3_384::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "SHA3-512" }</td>
+                            <td>{ Sha3_512::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
                     </tbody>
                 </table>
             </main>
