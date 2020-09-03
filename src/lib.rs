@@ -88,6 +88,22 @@ impl Component for App {
                             <td>{ Blake512::hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
+                            <td>{ "Keccak-224" }</td>
+                            <td>{ Keccak224::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "Keccak-256" }</td>
+                            <td>{ Keccak256::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "Keccak-384" }</td>
+                            <td>{ Keccak384::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "Keccak-512" }</td>
+                            <td>{ Keccak512::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
                             <td>{ "MD2" }</td>
                             <td>{ Md2::hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
