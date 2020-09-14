@@ -1,6 +1,6 @@
 # Ghash WebAssembly
 
-WebAssembly application of [Ghash](http://www.gitlab.com/glatan/ghash)
+Example application of [Ghash](http://www.gitlab.com/glatan/ghash).
 
 https://ghash.glatan.vercel.app/
 
