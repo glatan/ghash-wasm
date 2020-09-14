@@ -178,7 +178,7 @@ dependencies = [
 [[package]]
 name = "ghash"
 version = "0.0.1"
-source = "git+https://gitlab.com/glatan/ghash?branch=master#720620b9997d08330246d40e5be18da4b026a1ac"
+source = "git+https://gitlab.com/glatan/ghash#58d60e90907c06a66999b6509fd1eaee246a0fef"
 
 [[package]]
 name = "ghash-wasm"
