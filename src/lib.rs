@@ -57,127 +57,127 @@ impl Component for App {
                     <tbody>
                         <tr>
                             <td>{ "BLAKE-28" }</td>
-                            <td>{ Blake28::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Blake28::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "BLAKE-32" }</td>
-                            <td>{ Blake32::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Blake32::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "BLAKE-48" }</td>
-                            <td>{ Blake48::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Blake48::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "BLAKE-64" }</td>
-                            <td>{ Blake64::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Blake64::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "BLAKE-224" }</td>
-                            <td>{ Blake224::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Blake224::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "BLAKE-256" }</td>
-                            <td>{ Blake256::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Blake256::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "BLAKE-384" }</td>
-                            <td>{ Blake384::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Blake384::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "BLAKE-512" }</td>
-                            <td>{ Blake512::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Blake512::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "Keccak-224" }</td>
-                            <td>{ Keccak224::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Keccak224::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "Keccak-256" }</td>
-                            <td>{ Keccak256::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Keccak256::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "Keccak-384" }</td>
-                            <td>{ Keccak384::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Keccak384::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "Keccak-512" }</td>
-                            <td>{ Keccak512::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Keccak512::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "MD2" }</td>
-                            <td>{ Md2::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Md2::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "MD4" }</td>
-                            <td>{ Md4::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Md4::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "MD5" }</td>
-                            <td>{ Md5::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Md5::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "RIPEMD-128" }</td>
-                            <td>{ Ripemd128::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Ripemd128::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "RIPEMD-160" }</td>
-                            <td>{ Ripemd160::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Ripemd160::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "RIPEMD-256" }</td>
-                            <td>{ Ripemd256::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Ripemd256::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "RIPEMD-320" }</td>
-                            <td>{ Ripemd320::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Ripemd320::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "SHA-0" }</td>
-                            <td>{ Sha0::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Sha0::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "SHA-1" }</td>
-                            <td>{ Sha1::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Sha1::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "SHA-224" }</td>
-                            <td>{ Sha224::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Sha224::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "SHA-256" }</td>
-                            <td>{ Sha256::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Sha256::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "SHA-384" }</td>
-                            <td>{ Sha384::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Sha384::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "SHA-512" }</td>
-                            <td>{ Sha512::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Sha512::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "SHA-512/224" }</td>
-                            <td>{ Sha512Trunc224::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Sha512Trunc224::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "SHA-512/256" }</td>
-                            <td>{ Sha512Trunc256::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Sha512Trunc256::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "SHA3-224" }</td>
-                            <td>{ Sha3_224::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Sha3_224::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "SHA3-256" }</td>
-                            <td>{ Sha3_256::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Sha3_256::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "SHA3-384" }</td>
-                            <td>{ Sha3_384::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Sha3_384::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
                             <td>{ "SHA3-512" }</td>
-                            <td>{ Sha3_512::hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                            <td>{ Sha3_512::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                     </tbody>
                 </table>
