@@ -5,7 +5,7 @@
     "license": "GPL-3.0",
     "scripts": {
         "build": "rimraf dist && webpack --mode production",
-        "start": "rimraf pkg && webpack-dev-server --mode development",
+        "start": "rimraf pkg && webpack serve --mode development",
         "test": "cargo test && wasm-pack test --node"
     },
     "devDependencies": {
@@ -16,9 +16,8 @@
         "rimraf": "^3.0.2",
         "sass-loader": "^10.0.3",
         "style-loader": "^2.0.0",
-        "webpack": "^4.44.2",
-        "webpack-cli": "^3.3.12",
-        "webpack-dev-server": "^3.11.0",
-        "websocket-extensions": ">=0.1.4"
+        "webpack": "^5.0.0",
+        "webpack-cli": "^4.0.0",
+        "webpack-dev-server": "^3.11.0"
     }
 }
