@@ -14,7 +14,7 @@ crate-type = ["cdylib", "rlib"]
 [dependencies]
 yew = "0.17"
 wasm-bindgen = "0.2"
-ghash = { git = "https://gitlab.com/glatan/ghash", branch = "master" }
+ghash = { git = "https://gitlab.com/glatan/ghash", branch = "master", features = ["minimal"] }
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3"
