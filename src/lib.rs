@@ -187,6 +187,14 @@ impl Component for App {
                             <td>{ "SHA3-512" }</td>
                             <td>{ Sha3_512::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
+                        <tr>
+                            <td>{ "SHAKE128" }</td>
+                            <td>{ Shake128::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "SHAKE256" }</td>
+                            <td>{ Shake256::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
                     </tbody>
                 </table>
             </main>
