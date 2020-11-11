@@ -31,7 +31,7 @@ dependencies = [
 [[package]]
 name = "blake"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash?branch=master#e3d7580a9da816c5cf9685dbcdebbfbd40281a00"
+source = "git+https://gitlab.com/glatan/ghash#2546d0aa48aa6141cf23e647586ed2980fd8a6cf"
 dependencies = [
  "utils",
 ]
@@ -39,7 +39,7 @@ dependencies = [
 [[package]]
 name = "blake2"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash?branch=master#e3d7580a9da816c5cf9685dbcdebbfbd40281a00"
+source = "git+https://gitlab.com/glatan/ghash#2546d0aa48aa6141cf23e647586ed2980fd8a6cf"
 dependencies = [
  "utils",
 ]
@@ -88,6 +88,14 @@ checksum = "b8d976903543e0c48546a91908f21588a680a8c8f984df9a5d69feccb2b2a211"
 dependencies = [
  "cfg-if",
  "wasm-bindgen",
+]
+
+[[package]]
+name = "edonr"
+version = "0.1.0"
+source = "git+https://gitlab.com/glatan/ghash#2546d0aa48aa6141cf23e647586ed2980fd8a6cf"
+dependencies = [
+ "utils",
 ]
 
 [[package]]
@@ -194,10 +202,11 @@ dependencies = [
 [[package]]
 name = "ghash"
 version = "0.0.1"
-source = "git+https://gitlab.com/glatan/ghash?branch=master#e3d7580a9da816c5cf9685dbcdebbfbd40281a00"
+source = "git+https://gitlab.com/glatan/ghash#2546d0aa48aa6141cf23e647586ed2980fd8a6cf"
 dependencies = [
  "blake",
  "blake2",
+ "edonr",
  "keccak",
  "md2",
  "md4",
@@ -320,7 +329,7 @@ dependencies = [
 [[package]]
 name = "keccak"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash?branch=master#e3d7580a9da816c5cf9685dbcdebbfbd40281a00"
+source = "git+https://gitlab.com/glatan/ghash#2546d0aa48aa6141cf23e647586ed2980fd8a6cf"
 dependencies = [
  "utils",
 ]
@@ -343,7 +352,7 @@ dependencies = [
 [[package]]
 name = "md2"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash?branch=master#e3d7580a9da816c5cf9685dbcdebbfbd40281a00"
+source = "git+https://gitlab.com/glatan/ghash#2546d0aa48aa6141cf23e647586ed2980fd8a6cf"
 dependencies = [
  "utils",
 ]
@@ -351,7 +360,7 @@ dependencies = [
 [[package]]
 name = "md4"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash?branch=master#e3d7580a9da816c5cf9685dbcdebbfbd40281a00"
+source = "git+https://gitlab.com/glatan/ghash#2546d0aa48aa6141cf23e647586ed2980fd8a6cf"
 dependencies = [
  "utils",
 ]
@@ -359,7 +368,7 @@ dependencies = [
 [[package]]
 name = "md5"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash?branch=master#e3d7580a9da816c5cf9685dbcdebbfbd40281a00"
+source = "git+https://gitlab.com/glatan/ghash#2546d0aa48aa6141cf23e647586ed2980fd8a6cf"
 dependencies = [
  "utils",
 ]
@@ -372,9 +381,9 @@ checksum = "0ee1c47aaa256ecabcaea351eae4a9b01ef39ed810004e298d2511ed284b1525"
 
 [[package]]
 name = "once_cell"
-version = "1.4.1"
+version = "1.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "260e51e7efe62b592207e9e13a68e43692a7a279171d6ba57abd208bf23645ad"
+checksum = "f53cef67919d7d247eb9a2f128ca9e522789967ef1eb4ccd8c71a95a8aedf596"
 
 [[package]]
 name = "pin-project"
@@ -435,7 +444,7 @@ dependencies = [
 [[package]]
 name = "ripemd"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash?branch=master#e3d7580a9da816c5cf9685dbcdebbfbd40281a00"
+source = "git+https://gitlab.com/glatan/ghash#2546d0aa48aa6141cf23e647586ed2980fd8a6cf"
 dependencies = [
  "utils",
 ]
@@ -486,7 +495,7 @@ dependencies = [
 [[package]]
 name = "sha0"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash?branch=master#e3d7580a9da816c5cf9685dbcdebbfbd40281a00"
+source = "git+https://gitlab.com/glatan/ghash#2546d0aa48aa6141cf23e647586ed2980fd8a6cf"
 dependencies = [
  "utils",
 ]
@@ -494,7 +503,7 @@ dependencies = [
 [[package]]
 name = "sha1"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash?branch=master#e3d7580a9da816c5cf9685dbcdebbfbd40281a00"
+source = "git+https://gitlab.com/glatan/ghash#2546d0aa48aa6141cf23e647586ed2980fd8a6cf"
 dependencies = [
  "utils",
 ]
@@ -502,7 +511,7 @@ dependencies = [
 [[package]]
 name = "sha2"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash?branch=master#e3d7580a9da816c5cf9685dbcdebbfbd40281a00"
+source = "git+https://gitlab.com/glatan/ghash#2546d0aa48aa6141cf23e647586ed2980fd8a6cf"
 dependencies = [
  "utils",
 ]
@@ -510,7 +519,7 @@ dependencies = [
 [[package]]
 name = "sha3"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash?branch=master#e3d7580a9da816c5cf9685dbcdebbfbd40281a00"
+source = "git+https://gitlab.com/glatan/ghash#2546d0aa48aa6141cf23e647586ed2980fd8a6cf"
 dependencies = [
  "keccak",
  "utils",
@@ -562,7 +571,7 @@ checksum = "f7fe0bb3479651439c9112f72b6c505038574c9fbb575ed1bf3b797fa39dd564"
 [[package]]
 name = "utils"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash?branch=master#e3d7580a9da816c5cf9685dbcdebbfbd40281a00"
+source = "git+https://gitlab.com/glatan/ghash#2546d0aa48aa6141cf23e647586ed2980fd8a6cf"
 
 [[package]]
 name = "wasm-bindgen"

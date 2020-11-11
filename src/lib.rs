@@ -96,6 +96,22 @@ impl Component for App {
                             <td>{ Blake2b::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
+                            <td>{ "EDON-R224" }</td>
+                            <td>{ EdonR224::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "EDON-R256" }</td>
+                            <td>{ EdonR256::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "EDON-R384" }</td>
+                            <td>{ EdonR384::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "EDON-R512" }</td>
+                            <td>{ EdonR512::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
                             <td>{ "Keccak-224" }</td>
                             <td>{ Keccak224::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
