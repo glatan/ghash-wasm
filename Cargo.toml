@@ -24,4 +24,4 @@ wasm-bindgen-futures = "0.4"
 lto = true
 
 [package.metadata.wasm-pack.profile.profiling]
-wasm-opt = ['-Oz']
+wasm-opt = ['-O4']
