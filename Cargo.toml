@@ -16,10 +16,6 @@ yew = "0.17.4"
 wasm-bindgen = "0.2.69"
 ghash = { git = "https://gitlab.com/glatan/ghash", branch = "master", features = ["minimal"] }
 
-[dev-dependencies]
-wasm-bindgen-test = "0.3"
-wasm-bindgen-futures = "0.4"
-
 [profile.release]
 lto = true
 
