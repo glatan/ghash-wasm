@@ -31,7 +31,7 @@ dependencies = [
 [[package]]
 name = "blake"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
+source = "git+https://gitlab.com/glatan/ghash?branch=master#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
 dependencies = [
  "utils",
 ]
@@ -39,7 +39,7 @@ dependencies = [
 [[package]]
 name = "blake2"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
+source = "git+https://gitlab.com/glatan/ghash?branch=master#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
 dependencies = [
  "utils",
 ]
@@ -52,9 +52,9 @@ checksum = "cfa8873f51c92e232f9bac4065cddef41b714152812bfc5f7672ba16d6ef8cd9"
 
 [[package]]
 name = "bumpalo"
-version = "3.4.0"
+version = "3.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2e8c087f005730276d1096a652e92a8bacee2e2472bcc9715a74d2bec38b5820"
+checksum = "099e596ef14349721d9016f6b80dd3419ea1bf289ab9b44df8e4dfd3a005d5d9"
 
 [[package]]
 name = "byteorder"
@@ -99,7 +99,7 @@ dependencies = [
 [[package]]
 name = "edonr"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
+source = "git+https://gitlab.com/glatan/ghash?branch=master#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
 dependencies = [
  "utils",
 ]
@@ -208,7 +208,7 @@ dependencies = [
 [[package]]
 name = "ghash"
 version = "0.0.1"
-source = "git+https://gitlab.com/glatan/ghash#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
+source = "git+https://gitlab.com/glatan/ghash?branch=master#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
 dependencies = [
  "blake",
  "blake2",
@@ -323,9 +323,9 @@ checksum = "dd25036021b0de88a0aff6b850051563c6516d0bf53f8638938edbb9de732736"
 
 [[package]]
 name = "js-sys"
-version = "0.3.46"
+version = "0.3.47"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cf3d7383929f7c9c7c2d0fa596f325832df98c3704f2c60553080f7127a58175"
+checksum = "5cfb73131c35423a367daf8cbd24100af0d077668c8c2943f0e7dd775fef0f65"
 dependencies = [
  "wasm-bindgen",
 ]
@@ -333,7 +333,7 @@ dependencies = [
 [[package]]
 name = "keccak"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
+source = "git+https://gitlab.com/glatan/ghash?branch=master#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
 dependencies = [
  "utils",
 ]
@@ -346,17 +346,17 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 
 [[package]]
 name = "log"
-version = "0.4.13"
+version = "0.4.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fcf3805d4480bb5b86070dcfeb9e2cb2ebc148adb753c5cca5f884d1d65a42b2"
+checksum = "51b9bbe6c47d51fc3e1a9b945965946b4c44142ab8792c50835a980d362c2710"
 dependencies = [
- "cfg-if 0.1.10",
+ "cfg-if 1.0.0",
 ]
 
 [[package]]
 name = "md2"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
+source = "git+https://gitlab.com/glatan/ghash?branch=master#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
 dependencies = [
  "utils",
 ]
@@ -364,7 +364,7 @@ dependencies = [
 [[package]]
 name = "md4"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
+source = "git+https://gitlab.com/glatan/ghash?branch=master#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
 dependencies = [
  "utils",
 ]
@@ -372,7 +372,7 @@ dependencies = [
 [[package]]
 name = "md5"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
+source = "git+https://gitlab.com/glatan/ghash?branch=master#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
 dependencies = [
  "utils",
 ]
@@ -434,7 +434,7 @@ dependencies = [
 [[package]]
 name = "ripemd"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
+source = "git+https://gitlab.com/glatan/ghash?branch=master#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
 dependencies = [
  "utils",
 ]
@@ -447,18 +447,18 @@ checksum = "71d301d4193d031abdd79ff7e3dd721168a9572ef3fe51a1517aba235bd8f86e"
 
 [[package]]
 name = "serde"
-version = "1.0.119"
+version = "1.0.123"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9bdd36f49e35b61d49efd8aa7fc068fd295961fd2286d0b2ee9a4c7a14e99cc3"
+checksum = "92d5161132722baa40d802cc70b15262b98258453e85e5d1d365c757c73869ae"
 dependencies = [
  "serde_derive",
 ]
 
 [[package]]
 name = "serde_derive"
-version = "1.0.119"
+version = "1.0.123"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "552954ce79a059ddd5fd68c271592374bd15cab2274970380c000118aeffe1cd"
+checksum = "9391c295d64fc0abb2c556bad848f33cb8296276b1ad2677d1ae1ace4f258f31"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -479,7 +479,7 @@ dependencies = [
 [[package]]
 name = "sha0"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
+source = "git+https://gitlab.com/glatan/ghash?branch=master#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
 dependencies = [
  "utils",
 ]
@@ -487,7 +487,7 @@ dependencies = [
 [[package]]
 name = "sha1"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
+source = "git+https://gitlab.com/glatan/ghash?branch=master#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
 dependencies = [
  "utils",
 ]
@@ -495,7 +495,7 @@ dependencies = [
 [[package]]
 name = "sha2"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
+source = "git+https://gitlab.com/glatan/ghash?branch=master#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
 dependencies = [
  "utils",
 ]
@@ -503,7 +503,7 @@ dependencies = [
 [[package]]
 name = "sha3"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
+source = "git+https://gitlab.com/glatan/ghash?branch=master#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
 dependencies = [
  "keccak",
  "utils",
@@ -517,9 +517,9 @@ checksum = "c111b5bd5695e56cffe5129854aa230b39c93a305372fdbb2668ca2394eea9f8"
 
 [[package]]
 name = "syn"
-version = "1.0.58"
+version = "1.0.60"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cc60a3d73ea6594cd712d830cc1f0390fd71542d8c8cd24e70cc54cdfd5e05d5"
+checksum = "c700597eca8a5a762beb35753ef6b94df201c81cca676604f547495a0d7f0081"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -555,13 +555,13 @@ checksum = "f7fe0bb3479651439c9112f72b6c505038574c9fbb575ed1bf3b797fa39dd564"
 [[package]]
 name = "utils"
 version = "0.1.0"
-source = "git+https://gitlab.com/glatan/ghash#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
+source = "git+https://gitlab.com/glatan/ghash?branch=master#2e602a69fb0d6d7253462f3e7df0a605ca042db6"
 
 [[package]]
 name = "wasm-bindgen"
-version = "0.2.69"
+version = "0.2.70"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3cd364751395ca0f68cafb17666eee36b63077fb5ecd972bbcd74c90c4bf736e"
+checksum = "55c0f7123de74f0dab9b7d00fd614e7b19349cd1e2f5252bbe9b1754b59433be"
 dependencies = [
  "cfg-if 1.0.0",
  "wasm-bindgen-macro",
@@ -569,9 +569,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-backend"
-version = "0.2.69"
+version = "0.2.70"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1114f89ab1f4106e5b55e688b828c0ab0ea593a1ea7c094b141b14cbaaec2d62"
+checksum = "7bc45447f0d4573f3d65720f636bbcc3dd6ce920ed704670118650bcd47764c7"
 dependencies = [
  "bumpalo",
  "lazy_static",
@@ -584,9 +584,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-futures"
-version = "0.4.19"
+version = "0.4.20"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1fe9756085a84584ee9457a002b7cdfe0bfff169f45d2591d8be1345a6780e35"
+checksum = "3de431a2910c86679c34283a33f66f4e4abd7e0aec27b6669060148872aadf94"
 dependencies = [
  "cfg-if 1.0.0",
  "js-sys",
@@ -596,9 +596,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-macro"
-version = "0.2.69"
+version = "0.2.70"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7a6ac8995ead1f084a8dea1e65f194d0973800c7f571f6edd70adf06ecf77084"
+checksum = "3b8853882eef39593ad4174dd26fc9865a64e84026d223f63bb2c42affcbba2c"
 dependencies = [
  "quote",
  "wasm-bindgen-macro-support",
@@ -606,9 +606,9 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-macro-support"
-version = "0.2.69"
+version = "0.2.70"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b5a48c72f299d80557c7c62e37e7225369ecc0c963964059509fbafe917c7549"
+checksum = "4133b5e7f2a531fa413b3a1695e925038a05a71cf67e87dafa295cb645a01385"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -619,15 +619,15 @@ dependencies = [
 
 [[package]]
 name = "wasm-bindgen-shared"
-version = "0.2.69"
+version = "0.2.70"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7e7811dd7f9398f14cc76efd356f98f03aa30419dea46aa810d71e819fc97158"
+checksum = "dd4945e4943ae02d15c13962b38a5b1e81eadd4b71214eee75af64a4d6a4fd64"
 
 [[package]]
 name = "web-sys"
-version = "0.3.46"
+version = "0.3.47"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "222b1ef9334f92a21d3fb53dc3fd80f30836959a90f9274a626d7e06315ba3c3"
+checksum = "c40dc691fc48003eba817c38da7113c15698142da971298003cac3ef175680b3"
 dependencies = [
  "js-sys",
  "wasm-bindgen",
