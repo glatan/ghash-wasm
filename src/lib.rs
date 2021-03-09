@@ -42,6 +42,7 @@ impl Component for App {
             <>
             { header() }
             <main>
+            { bow() }
             <textarea
                 value=&self.value
                 oninput=self.link.callback(|m: InputData| Msg::OnInput(m.value)),
