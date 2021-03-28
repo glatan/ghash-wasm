@@ -22,12 +22,3 @@ pub fn footer() -> Html {
         </footer>
     }
 }
-
-pub fn bow() -> Html {
-    html! {
-        <section style="text-align: center;">
-            <h2>{ "ハッシュ関数がデータを処理する過程を表示するところが完成しませんでした。" } </h2>
-            <h2>{ "🙇🙇🙇" } </h2>
-        </section>
-    }
-}
