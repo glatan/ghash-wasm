@@ -112,6 +112,30 @@ impl Component for App {
                             <td>{ EdonR512::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>
                         <tr>
+                            <td>{ "Keccak-f[200](r=40, c=160)" }</td>
+                            <td>{ KeccakF200::new(40, 160, 64).hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "Keccak-f[400](r=144, c=256)" }</td>
+                            <td>{ KeccakF400::new(144, 256, 64).hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "Keccak-f[400](r=240, c=160)" }</td>
+                            <td>{ KeccakF400::new(240, 160, 64).hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "Keccak-f[800](r=288, c=512)" }</td>
+                            <td>{ KeccakF800::new(288, 512, 64).hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "Keccak-f[800](r=544, c=256)" }</td>
+                            <td>{ KeccakF800::new(544, 256, 64).hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
+                            <td>{ "Keccak-f[800](r=640, c=160)" }</td>
+                            <td>{ KeccakF800::new(640, 160, 64).hash_to_lowerhex(&self.value.as_bytes()) }</td>
+                        </tr>
+                        <tr>
                             <td>{ "Keccak-224" }</td>
                             <td>{ Keccak224::default().hash_to_lowerhex(&self.value.as_bytes()) }</td>
                         </tr>

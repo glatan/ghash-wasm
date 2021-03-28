@@ -7,7 +7,7 @@ $LIGHT_BLACK: #CDCDCD;
     h1, h2, h3, h4, h5, p, :link, :visited {
         color: $BLACK;
     }
-    p, span {
+    span {
         font-size: 18px;
         font-weight: normal;
     }
@@ -45,7 +45,7 @@ footer {
     margin-bottom: 3rem;
     margin-top: 3rem;
     p {
-        font-size: 15px;
+        font-size: 18px;
     }
 }
 
@@ -86,6 +86,10 @@ th, td {
 th:first-child {
     min-width: 7rem;
     text-align: left;
+}
+
+th:last-child {
+    width: 70%;
 }
 
 tbody > tr {
