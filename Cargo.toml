@@ -12,7 +12,7 @@ edition = "2018"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-yew = "0.17.4"
+yew = "0.18.0"
 wasm-bindgen = "0.2.74"
 ghash = { git = "https://gitlab.com/glatan/ghash", branch = "master", features = ["minimal"] }
 

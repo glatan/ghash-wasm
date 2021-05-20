@@ -43,8 +43,8 @@ impl Component for App {
             { header() }
             <main>
             <textarea
-                value=&self.value
-                oninput=self.link.callback(|m: InputData| Msg::OnInput(m.value)),
+                value=self.value.clone()
+                oninput=self.link.callback(|m: InputData| Msg::OnInput(m.value))
             >
             </textarea>
                 <table>
