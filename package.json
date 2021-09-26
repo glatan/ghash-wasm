@@ -15,7 +15,7 @@
     "devDependencies": {
         "@wasm-tool/wasm-pack-plugin": "^1.5.0",
         "copy-webpack-plugin": "^9.0.1",
-        "css-loader": "^6.2.0",
+        "css-loader": "^6.3.0",
         "node-sass": "^6.0.1",
         "rimraf": "^3.0.2",
         "sass-loader": "^12.1.0",
