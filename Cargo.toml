@@ -17,6 +17,7 @@ wasm-bindgen = "0.2.76"
 ghash = { git = "https://gitlab.com/glatan/ghash", branch = "master", features = ["minimal"] }
 
 [profile.release]
+codegen-units = 1
 lto = true
 
 [package.metadata.wasm-pack.profile.profiling]
