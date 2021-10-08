@@ -13,7 +13,7 @@
         "test": "cargo test && wasm-pack test --node"
     },
     "devDependencies": {
-        "@wasm-tool/wasm-pack-plugin": "^1.5.0",
+        "@wasm-tool/wasm-pack-plugin": "^1.6.0",
         "copy-webpack-plugin": "^9.0.1",
         "css-loader": "^6.3.0",
         "node-sass": "^6.0.1",
