@@ -48,6 +48,10 @@ module.exports = {
             from: './static/favicon.png',
             to: distPath,
           },
+          {
+            from: './static/og:image.png',
+            to: distPath,
+          },
         ],
       }),
       new WasmPackPlugin({
