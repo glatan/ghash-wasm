@@ -18,7 +18,9 @@ module.exports = {
       webassemblyModuleFilename: "ghash.wasm"
     },
     devServer: {
-      contentBase: distPath,
+      static: {
+        directory: distPath,
+      },
       host: '0.0.0.0',
       port: 8080,
       hot: true
@@ -40,6 +42,14 @@ module.exports = {
         patterns: [
           {
             from: './static/index.html',
+            to: distPath,
+          },
+          {
+            from: './static/favicon.png',
+            to: distPath,
+          },
+          {
+            from: './static/og:image.png',
             to: distPath,
           },
         ],
