@@ -16,4 +16,4 @@ mv -f /cargo/bin/* /usr/bin
 
 # install trunk
 curl -L "https://github.com/thedodd/trunk/releases/download/v${TRUNK_VERSION}/trunk-v${TRUNK_VERSION}-x86_64-unknown-linux-gnu.tar.gz" | tar xz
-mv -f trunk-v${TRUNK_VERSION}-x86_64-unknown-linux-musl/wasm-pack /usr/bin
+mv -f trunk-v${TRUNK_VERSION}-x86_64-unknown-linux-gnu/trunk /usr/bin
