@@ -1,4 +1,4 @@
-FROM amazonlinux:2
+FROM docker.io/amazonlinux:2
 
 WORKDIR /workdir
 

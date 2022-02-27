@@ -1,12 +1,8 @@
 #! /usr/bin/env bash
 
-TRUNK_VERSION='0.14.0'
-readonly TRUNK_VERSION
-CARGO_HOME='/cargo'
-# shellcheck disable=SC2034
-readonly CARGO_HOME
-
 # setup stable version of Rust
+export CARGO_HOME='/cargo'
+
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs -o rustup-init.sh
 sh rustup-init.sh -y \
     --default-host x86_64-unknown-linux-gnu \
@@ -15,5 +11,8 @@ sh rustup-init.sh -y \
 mv -f /cargo/bin/* /usr/bin
 
 # install trunk
-curl -L "https://github.com/thedodd/trunk/releases/download/v${TRUNK_VERSION}/trunk-v${TRUNK_VERSION}-x86_64-unknown-linux-gnu.tar.gz" | tar xz
-mv -f trunk-v${TRUNK_VERSION}-x86_64-unknown-linux-gnu/trunk /usr/bin
+TRUNK_VERSION='v0.14.0'
+readonly TRUNK_VERSION
+
+curl -L "https://glatan.gitlab.io/trunk-build/${TRUNK_VERSION}/trunk-x86_64-unknown-linux-musl.tar.xz" | tar xz
+mv -f trunk /usr/bin
