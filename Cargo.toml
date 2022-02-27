@@ -5,7 +5,7 @@ version = "0.0.1"
 authors = ["glatan <glatan.edu@gmail.com>"]
 categories = ["wasm"]
 readme = "README.md"
-license = "GPL-3.0"
+license = "AGPL-3.0"
 edition = "2018"
 
 [lib]
