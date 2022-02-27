@@ -1,0 +1,20 @@
+[build]
+target = "index.html"
+release = false
+dist = "dist"
+public_url = "/"
+
+[serve]
+addr = "127.0.0.1"
+port = 8080
+open = false
+no_autoreload = false
+
+[clean]
+dist = "dist"
+cargo = false
+
+[tools]
+sass = "1.49.9"
+wasm_bindgen = "0.2.79"
+wasm_opt = "version_105"
