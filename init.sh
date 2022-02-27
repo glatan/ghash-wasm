@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-export WASMPACK_VERSION='0.10.0'
+export WASMPACK_VERSION='0.10.2'
 export CARGO_HOME='/cargo'
 
 # setup stable version of Rust
