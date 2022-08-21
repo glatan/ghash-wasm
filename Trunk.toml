@@ -16,5 +16,5 @@ cargo = false
 
 [tools]
 sass = "1.49.9"
-wasm_bindgen = "0.2.79"
-wasm_opt = "version_105"
+wasm_bindgen = "0.2.82"
+wasm_opt = "version_109"
