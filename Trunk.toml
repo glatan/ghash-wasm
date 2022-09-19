@@ -15,6 +15,6 @@ dist = "dist"
 cargo = false
 
 [tools]
-sass = "1.49.9"
-wasm_bindgen = "0.2.82"
-wasm_opt = "version_109"
+sass = "1.54.9"
+wasm_bindgen = "0.2.83"
+wasm_opt = "version_110"

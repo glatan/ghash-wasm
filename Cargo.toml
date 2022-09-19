@@ -6,12 +6,12 @@ authors = ["glatan <glatan.edu@gmail.com>"]
 categories = ["wasm"]
 readme = "README.md"
 license = "AGPL-3.0"
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 yew = "0.19.3"
-wasm-bindgen = "0.2.82"
-web-sys = "0.3.59"
+wasm-bindgen = "0.2.83"
+web-sys = "0.3.60"
 ghash = { git = "https://gitlab.com/glatan/ghash", branch = "master", features = ["minimal"] }
 
 [profile.release]
