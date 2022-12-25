@@ -3,7 +3,7 @@
 use ghash::*;
 use wasm_bindgen::JsCast;
 use web_sys::{HtmlInputElement, InputEvent};
-use yew::{html, Component, Context, Html};
+use yew::{html, Component, Context, Html, Renderer};
 
 mod component;
 
@@ -126,5 +126,5 @@ impl Component for App {
 }
 
 fn main() {
-    yew::start_app::<App>();
+    Renderer::<App>::new().render();
 }

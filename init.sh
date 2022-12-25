@@ -11,7 +11,7 @@ sh rustup-init.sh -y \
 mv -f /cargo/bin/* /usr/bin
 
 # install trunk
-TRUNK_VERSION='v0.14.0'
+TRUNK_VERSION='v0.16.0'
 readonly TRUNK_VERSION
 
 curl -L "https://glatan.gitlab.io/trunk-build/${TRUNK_VERSION}/trunk-x86_64-unknown-linux-musl.tar.gz" | tar xz
