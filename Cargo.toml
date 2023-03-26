@@ -17,6 +17,3 @@ ghash = { git = "https://gitlab.com/glatan/ghash", branch = "master", features =
 [profile.release]
 codegen-units = 1
 lto = true
-
-[package.metadata.wasm-pack.profile.profiling]
-wasm-opt = ['-O4']
