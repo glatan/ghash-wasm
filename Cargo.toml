@@ -9,9 +9,9 @@ license = "AGPL-3.0"
 edition = "2021"
 
 [dependencies]
-yew = { version = "0.20.0", features = ["csr"] }
-wasm-bindgen = "0.2.84"
-web-sys = "0.3.61"
+yew = { version = "0.21.0", features = ["csr"] }
+wasm-bindgen = "0.2.92"
+web-sys = "0.3.69"
 ghash = { git = "https://gitlab.com/glatan/ghash", branch = "master", features = ["minimal"] }
 
 [profile.release]
